@@ -1,6 +1,6 @@
 <template>
 <div class="chart">
-  <h5>{{ title }}</h5>
+  <h6>{{ title }}</h6>
   <div class="chart-container">
     <svg width="100%" height="100%"> </svg>
   </div>
