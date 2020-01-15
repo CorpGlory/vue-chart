@@ -6,8 +6,8 @@ type DateLike = Date | number | { valueOf(): number };
 
 const formatMillisecond = d3.timeFormat('.%L');
 const formatSecond = d3.timeFormat(':%S');
-const formatMinute = d3.timeFormat('%H:%M');
-const formatHour = d3.timeFormat('%H:00');
+const formatMinute = d3.timeFormat('%d %b %H:%M');
+const formatHour = d3.timeFormat('%d %b %H:00');
 const formatDay = d3.timeFormat('%d %b');
 const formatWeek = d3.timeFormat('%b %d');
 const formatMonth = d3.timeFormat('%B');
