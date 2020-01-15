@@ -206,6 +206,17 @@ module.exports = !DESCRIPTORS && !fails(function () {
 
 /***/ }),
 
+/***/ "123f":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_7d8da6df_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("a088");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_7d8da6df_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_7d8da6df_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_7d8da6df_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "131a":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -419,17 +430,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return internalObjectKeys(O, hiddenKeys);
 };
 
-
-/***/ }),
-
-/***/ "262a":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3c98cfc6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("86d7");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3c98cfc6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3c98cfc6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3c98cfc6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -18399,13 +18399,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "86d7":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "8925":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18606,6 +18599,13 @@ module.exports = function (IteratorConstructor, NAME, next) {
   return IteratorConstructor;
 };
 
+
+/***/ }),
+
+/***/ "a088":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -19852,12 +19852,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5cbe103e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=3c98cfc6&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5cbe103e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=7d8da6df&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"chart"},[_c('h5',[_vm._v(_vm._s(_vm.title))]),_c('div',{staticClass:"chart-container"},[_c('svg',{attrs:{"width":"100%","height":"100%"}})])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=3c98cfc6&scoped=true&
+// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=7d8da6df&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -19870,9 +19870,6 @@ var es_array_iterator = __webpack_require__("e260");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
 var es_array_map = __webpack_require__("d81d");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
-var es_array_slice = __webpack_require__("fb6a");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
 var es_object_to_string = __webpack_require__("d3b7");
@@ -31905,8 +31902,8 @@ var lodash_default = /*#__PURE__*/__webpack_require__.n(lodash);
 
 var utils_formatMillisecond = timeFormat('.%L');
 var utils_formatSecond = timeFormat(':%S');
-var utils_formatMinute = timeFormat('%H:%M');
-var utils_formatHour = timeFormat('%H:00');
+var utils_formatMinute = timeFormat('%d %b %H:%M');
+var utils_formatHour = timeFormat('%d %b %H:00');
 var utils_formatDay = timeFormat('%d %b');
 var utils_formatWeek = timeFormat('%b %d');
 var utils_formatMonth = timeFormat('%B');
@@ -32551,19 +32548,14 @@ function (_Vue) {
 
     _this.margin = {
       top: 20,
-      right: 110,
-      bottom: 100,
-      left: 90
+      right: 40,
+      bottom: 20,
+      left: 70
     };
     return _this;
   }
 
   _createClass(MyChart, [{
-    key: "onTimeSeriesChange",
-    value: function onTimeSeriesChange() {
-      this.renderChart();
-    }
-  }, {
     key: "_createSvg",
     value: function _createSvg() {
       this.d3Node.selectAll('svg *').remove();
@@ -32573,8 +32565,8 @@ function (_Vue) {
     key: "_renderAxes",
     value: function _renderAxes() {
       this.svg.append('g').attr('class', 'x axis').attr('transform', "translate(0,".concat(this.height, ")")) // TODO: number of ticks shouldn't be hardcoded
-      .call(axisBottom(this.yScale).ticks(3));
-      this.svg.append('g').attr('class', "y0 axis").call(axisLeft(this.xScale).tickFormat(formatTimeTicks));
+      .call(axisBottom(this.yScale).ticks(2).tickSize(2));
+      this.svg.append('g').attr('class', "y0 axis").call(axisLeft(this.xScale).tickFormat(formatTimeTicks).tickSize(2));
     }
   }, {
     key: "_renderMetric",
@@ -32587,22 +32579,11 @@ function (_Vue) {
         return _this2.xScale(d[0]);
       });
       this.svg.append('path').datum(this.values).attr('fill', 'none').attr('stroke', this.colors[idx]).attr('stroke-width', 1).attr('d', lineGenerator);
-      this.svg.selectAll(".dot".concat(idx + 1)).data(this.values.map(function (value) {
-        return {
-          time: value[0],
-          value: value[idx + 1],
-          name: name
-        };
-      })).enter().append('circle').attr('fill', this.colors[idx]).attr('cx', function (d) {
-        return _this2.yScale(d.value);
-      }).attr('cy', function (d) {
-        return _this2.xScale(d.time);
-      }).attr('r', 2);
     }
   }, {
     key: "renderChart",
     value: function renderChart() {
-      if (this.metrics.length === 0) {
+      if (this.metricNames.length === 0) {
         throw new Error('There should be at least 1 metric');
       }
 
@@ -32610,18 +32591,29 @@ function (_Vue) {
 
       this._renderAxes();
 
-      this.metrics.forEach(this._renderMetric);
+      this.metricNames.forEach(this._renderMetric);
     }
   }, {
     key: "mounted",
     value: function mounted() {
       this.d3Node = src_select(this.$el);
-      this.onTimeSeriesChange();
+      this.renderChart();
     }
   }, {
-    key: "metrics",
+    key: "metricNames",
     get: function get() {
-      return this.timeSeries.columns.slice(1);
+      return this.timeSeries.columns;
+    }
+  }, {
+    key: "values",
+    get: function get() {
+      // TODO: convert "time" column to date
+      return this.timeSeries.values;
+    }
+  }, {
+    key: "colors",
+    get: function get() {
+      return this.timeSeries.colors;
     }
   }, {
     key: "width",
@@ -32636,16 +32628,6 @@ function (_Vue) {
       return svgContainer.node().clientHeight - this.margin.top - this.margin.bottom;
     }
   }, {
-    key: "values",
-    get: function get() {
-      return this.timeSeries.values;
-    }
-  }, {
-    key: "colors",
-    get: function get() {
-      return this.timeSeries.colors;
-    }
-  }, {
     key: "maxMetricValue",
     get: function get() {
       var _this3 = this;
@@ -32653,7 +32635,7 @@ function (_Vue) {
       var maxValue = this.maxValue;
 
       if (maxValue === undefined) {
-        var maxMetricValue = lodash["max"](this.metrics.map(function (metric, idx) {
+        var maxMetricValue = lodash["max"](this.metricNames.map(function (metric, idx) {
           return findMaxMetricValue(_this3.values, idx + 1);
         }));
 
@@ -32667,11 +32649,13 @@ function (_Vue) {
   }, {
     key: "xScale",
     get: function get() {
+      // x is vertical axis
       return src_time().domain([new Date(this.values[0][0]), new Date(this.values[this.values.length - 1][0])]).range([0, this.height]);
     }
   }, {
     key: "yScale",
     get: function get() {
+      // y is horizontal axis
       return linear_linear().domain([0, this.maxMetricValue]).range([0, this.width]);
     }
   }]);
@@ -32684,21 +32668,19 @@ __decorate([Prop({
 })], Chartvue_type_script_lang_ts_MyChart.prototype, "timeSeries", void 0);
 
 __decorate([Prop({
-  required: true
+  required: false
 })], Chartvue_type_script_lang_ts_MyChart.prototype, "title", void 0);
 
 __decorate([Prop({
   required: false
 })], Chartvue_type_script_lang_ts_MyChart.prototype, "maxValue", void 0);
 
-__decorate([Watch('timeSeries')], Chartvue_type_script_lang_ts_MyChart.prototype, "onTimeSeriesChange", null);
-
 Chartvue_type_script_lang_ts_MyChart = __decorate([vue_class_component_esm], Chartvue_type_script_lang_ts_MyChart);
 /* harmony default export */ var Chartvue_type_script_lang_ts_ = (Chartvue_type_script_lang_ts_MyChart);
 // CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=script&lang=ts&
  /* harmony default export */ var components_Chartvue_type_script_lang_ts_ = (Chartvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/Chart.vue?vue&type=style&index=0&id=3c98cfc6&scoped=true&lang=css&
-var Chartvue_type_style_index_0_id_3c98cfc6_scoped_true_lang_css_ = __webpack_require__("262a");
+// EXTERNAL MODULE: ./src/components/Chart.vue?vue&type=style&index=0&id=7d8da6df&scoped=true&lang=css&
+var Chartvue_type_style_index_0_id_7d8da6df_scoped_true_lang_css_ = __webpack_require__("123f");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -32810,7 +32792,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "3c98cfc6",
+  "7d8da6df",
   null
   
 )
@@ -32824,63 +32806,6 @@ var component = normalizeComponent(
 
 /* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src_main);
 
-
-
-/***/ }),
-
-/***/ "fb6a":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("23e7");
-var isObject = __webpack_require__("861d");
-var isArray = __webpack_require__("e8b5");
-var toAbsoluteIndex = __webpack_require__("23cb");
-var toLength = __webpack_require__("50c4");
-var toIndexedObject = __webpack_require__("fc6a");
-var createProperty = __webpack_require__("8418");
-var wellKnownSymbol = __webpack_require__("b622");
-var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
-var arrayMethodUsesToLength = __webpack_require__("ae40");
-
-var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('slice');
-var USES_TO_LENGTH = arrayMethodUsesToLength('slice', { ACCESSORS: true, 0: 0, 1: 2 });
-
-var SPECIES = wellKnownSymbol('species');
-var nativeSlice = [].slice;
-var max = Math.max;
-
-// `Array.prototype.slice` method
-// https://tc39.github.io/ecma262/#sec-array.prototype.slice
-// fallback for not array-like ES3 strings and DOM objects
-$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
-  slice: function slice(start, end) {
-    var O = toIndexedObject(this);
-    var length = toLength(O.length);
-    var k = toAbsoluteIndex(start, length);
-    var fin = toAbsoluteIndex(end === undefined ? length : end, length);
-    // inline `ArraySpeciesCreate` for usage native `Array#slice` where it's possible
-    var Constructor, result, n;
-    if (isArray(O)) {
-      Constructor = O.constructor;
-      // cross-realm fallback
-      if (typeof Constructor == 'function' && (Constructor === Array || isArray(Constructor.prototype))) {
-        Constructor = undefined;
-      } else if (isObject(Constructor)) {
-        Constructor = Constructor[SPECIES];
-        if (Constructor === null) Constructor = undefined;
-      }
-      if (Constructor === Array || Constructor === undefined) {
-        return nativeSlice.call(O, k, fin);
-      }
-    }
-    result = new (Constructor === undefined ? Array : Constructor)(max(fin - k, 0));
-    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
-    result.length = n;
-    return result;
-  }
-});
 
 
 /***/ }),
