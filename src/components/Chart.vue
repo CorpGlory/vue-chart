@@ -27,7 +27,7 @@ export default class MyChart extends Vue {
   @Prop({ required: true })
   timeSeries!: TimeSeries;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   title!: string;
 
   @Prop({ required: false })
