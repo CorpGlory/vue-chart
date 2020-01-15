@@ -22,7 +22,7 @@ export default class MyChart extends Vue {
   d3Node: any;
   svg: any;
   // TODO: count margins
-  margin = { top: 20, right: 110, bottom: 100, left: 90 };
+  margin = { top: 20, right: 40, bottom: 20, left: 70 };
 
   @Prop({ required: true })
   timeSeries!: TimeSeries;
@@ -33,13 +33,8 @@ export default class MyChart extends Vue {
   @Prop({ required: false })
   maxValue!: number;
 
-  @Watch('timeSeries')
-  onTimeSeriesChange() {
-    this.renderChart();
-  }
-
   get metricNames(): string[] {
-    return this.timeSeries.columns.slice(1);
+    return this.timeSeries.columns;
   }
 
   get values(): number[][] {
@@ -107,11 +102,11 @@ export default class MyChart extends Vue {
       .attr('class', 'x axis')
       .attr('transform', `translate(0,${this.height})`)
       // TODO: number of ticks shouldn't be hardcoded
-      .call(d3.axisBottom(this.yScale).ticks(3));
+      .call(d3.axisBottom(this.yScale).ticks(2).tickSize(2));
 
     this.svg.append('g')
       .attr('class', `y0 axis`)
-      .call(d3.axisLeft(this.xScale).tickFormat(formatTimeTicks as any));
+      .call(d3.axisLeft(this.xScale).tickFormat(formatTimeTicks as any).tickSize(2));
   }
 
   _renderMetric(name: string, idx: number) {
@@ -125,23 +120,6 @@ export default class MyChart extends Vue {
       .attr('stroke', this.colors[idx])
       .attr('stroke-width', 1)
       .attr('d', lineGenerator);
-
-    this.svg.selectAll(`.dot${idx + 1}`)
-      .data(
-        this.values.map(
-          value => ({
-            time: value[0],
-            value: value[idx + 1],
-            name
-          })
-        )
-      )
-      .enter()
-      .append('circle')
-        .attr('fill', this.colors[idx])
-        .attr('cx', (d: any) => this.yScale(d.value))
-        .attr('cy', (d: any) => this.xScale(d.time))
-        .attr('r', 2);
   }
 
   renderChart(): void {
@@ -158,7 +136,7 @@ export default class MyChart extends Vue {
   mounted() {
     this.d3Node = d3.select(this.$el);
 
-    this.onTimeSeriesChange();
+    this.renderChart();
   }
 }
 </script>
