@@ -16,13 +16,14 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import * as d3 from 'd3';
 import * as _ from 'lodash';
 
+const DEFAULT_MARGIN = { top: 20, right: 40, bottom: 20, left: 70 };
+
 @Component
 export default class MyChart extends Vue {
 
   d3Node: any;
   svg: any;
   // TODO: count margins
-  margin = { top: 20, right: 40, bottom: 20, left: 70 };
 
   @Prop({ required: true })
   timeSeries!: TimeSeries;
@@ -30,8 +31,14 @@ export default class MyChart extends Vue {
   @Prop({ required: false })
   title!: string;
 
+  @Prop({ required: false, default: () => DEFAULT_MARGIN })
+  margin!: { top: number, right: number, bottom: number, left: number };
+
   @Prop({ required: false })
   maxValue!: number;
+
+  @Prop({ required: false, default: true })
+  renderLabelX!: boolean;
 
   get metricNames(): string[] {
     return this.timeSeries.columns;
@@ -88,6 +95,14 @@ export default class MyChart extends Vue {
       .range([0, this.width]);
   }
 
+  get labelX(): any {
+    if (this.renderLabelX === true ) {
+      return formatTimeTicks;
+    } else {
+      return () => {''};
+    }
+  }
+
   _createSvg(): void {
     this.d3Node.selectAll('svg *').remove();
 
@@ -106,7 +121,7 @@ export default class MyChart extends Vue {
 
     this.svg.append('g')
       .attr('class', `y0 axis`)
-      .call(d3.axisLeft(this.xScale).tickFormat(formatTimeTicks as any).tickSize(2));
+      .call(d3.axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
   }
 
   _renderMetric(name: string, idx: number) {
