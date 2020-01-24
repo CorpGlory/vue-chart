@@ -1,5 +1,5 @@
 <template>
-<div class="chart">
+<div :id="id" class="chart">
   <h6>{{ title }}</h6>
   <div class="chart-container">
     <svg width="100%" height="100%"> </svg>
@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import { findMaxMetricValue, formatTimeTicks } from '@/utils';
-import { TimeSeries, Annotation } from '@/types';
+import { findMaxMetricValue, formatTimeTicks } from './utils';
+import { TimeSeries, Annotation } from './types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
@@ -23,7 +23,10 @@ export default class MyChart extends Vue {
 
   d3Node: any;
   svg: any;
-  // TODO: count margins
+  tooltip: any;
+
+  @Prop({ required: true })
+  id!: number;
 
   @Prop({ required: true })
   timeSeries!: TimeSeries;
@@ -140,14 +143,19 @@ export default class MyChart extends Vue {
       .attr('d', lineGenerator);
   }
 
-  _renderAnnotation(annotation: Annotation) {
-    const annotationTime = new Date(annotation.timestamp * 1000);
-    this.svg.append('line')
-      .attr("x1", this.yScale(0))
-      .attr("x2", this.yScale(this.maxMetricValue))
-      .attr("y1", this.xScale(annotationTime))
-      .attr("y2", this.xScale(annotationTime))
-      .attr("style", "stroke:black;stroke-width:1;stroke-dasharray:5,5;");
+  _renderAnnotations(): void {
+    this.svg.selectAll()
+      .data(this.annotations)
+      .enter()
+      .append('line')
+        .attr('x1', this.yScale(0))
+        .attr('x2', this.yScale(this.maxMetricValue))
+        .attr('y1', d => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('y2', d => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;')
+        .on('mouseover', this.mouseOver)
+        .on('mousemove', this.mouseMove)
+        .on('mouseleave', this.mouseLeave);
   }
 
   renderChart(): void {
@@ -159,12 +167,41 @@ export default class MyChart extends Vue {
     this._renderAxes();
 
     this.metricNames.forEach(this._renderMetric);
-    this.annotations.forEach(this._renderAnnotation);
+    this._renderAnnotations();
   }
 
-  mounted() {
+  renderTooltip(): void {
+    this.tooltip = d3.select(`#${this.id}`)
+      .append('div')
+      .style('opacity', 0)
+      .attr('class', 'tooltip')
+      .style('background-color', 'white')
+      .style('border', 'solid')
+      .style('border-width', '2px')
+      .style('border-radius', '5px')
+      .style('padding', '5px');
+  }
+
+  mouseOver(d: any, i: number, node: any): void {
+    this.tooltip
+      .style('opacity', 1);
+  }
+
+  mouseMove(d: any, i: number, node: any): void {
+    this.tooltip
+      .html(d.text)
+      .style('left', (d3.mouse(node[i])[0] + 10) + 'px')
+      .style('top', (d3.mouse(node[i])[1]) + 'px');
+  }
+  mouseLeave(d: any, i: number, node: any): void {
+    this.tooltip
+      .style('opacity', 0);
+  }
+
+  mounted(): void {
     this.d3Node = d3.select(this.$el);
 
+    this.renderTooltip();
     this.renderChart();
   }
 }
