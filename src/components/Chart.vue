@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import { findMaxMetricValue, formatTimeTicks } from './utils';
-import { TimeSeries, Annotation } from './types';
+import { findMaxMetricValue, formatTimeTicks } from '@/utils';
+import { TimeSeries, Annotation } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
@@ -130,10 +130,10 @@ export default class MyChart extends Vue {
       .call(d3.axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
   }
 
-  _renderMetric(name: string, idx: number) {
+  _renderMetric(name: string, idx: number): void {
     const lineGenerator = d3.line()
-      .x(d => this.yScale(d[idx + 1]))
-      .y(d => this.xScale(d[0]));
+      .x((d: any) => this.yScale(d[idx + 1]))
+      .y((d: any) => this.xScale(d[0]));
 
     this.svg.append('path')
       .datum(this.values)
@@ -150,8 +150,8 @@ export default class MyChart extends Vue {
       .append('line')
         .attr('x1', this.yScale(0))
         .attr('x2', this.yScale(this.maxMetricValue))
-        .attr('y1', d => this.xScale(new Date(d.timestamp * 1000)))
-        .attr('y2', d => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;')
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
