@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { findMaxMetricValue, formatTimeTicks } from '@/utils';
-import { TimeSeries } from '@/types';
+import { TimeSeries, Annotation } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
@@ -27,6 +27,9 @@ export default class MyChart extends Vue {
 
   @Prop({ required: true })
   timeSeries!: TimeSeries;
+
+  @Prop({ required: false, default: [] })
+  annotations!: Annotation[];
 
   @Prop({ required: false })
   title!: string;
@@ -137,6 +140,16 @@ export default class MyChart extends Vue {
       .attr('d', lineGenerator);
   }
 
+  _renderAnnotation(annotation: Annotation) {
+    const annotationTime = new Date(annotation.timestamp * 1000);
+    this.svg.append('line')
+      .attr("x1", this.yScale(0))
+      .attr("x2", this.yScale(this.maxMetricValue))
+      .attr("y1", this.xScale(annotationTime))
+      .attr("y2", this.xScale(annotationTime))
+      .attr("style", "stroke:black;stroke-width:1;stroke-dasharray:5,5;");
+  }
+
   renderChart(): void {
     if(this.metricNames.length === 0) {
       throw new Error('There should be at least 1 metric');
@@ -146,6 +159,7 @@ export default class MyChart extends Vue {
     this._renderAxes();
 
     this.metricNames.forEach(this._renderMetric);
+    this.annotations.forEach(this._renderAnnotation);
   }
 
   mounted() {
