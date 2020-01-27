@@ -35,7 +35,7 @@ export default class MyChart extends Vue {
   annotations!: Annotation[];
 
   @Prop({ required: false, default: '' })
-  annotationLabel: string;
+  annotationLabel!: string;
 
   @Prop({ required: false })
   title!: string;
@@ -155,10 +155,7 @@ export default class MyChart extends Vue {
         .attr('x2', this.yScale(this.maxMetricValue))
         .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
-        .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;')
-        .on('mouseover', this.mouseOver)
-        .on('mousemove', this.mouseMove)
-        .on('mouseleave', this.mouseLeave);
+        .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;');
     if(this.renderLabelX === true) {
       this._renderAnnotationsHelper();
     }
@@ -220,8 +217,11 @@ export default class MyChart extends Vue {
   renderTooltip(): void {
     this.tooltip = d3.select(`#${this.id}`)
       .append('div')
-      .style('opacity', 0)
-      .attr('class', 'tooltip')
+      .style('width', '250px')
+      .style('height', '50px')
+      .style('display', 'none')
+      .style('position', 'absolute')
+      .style('text-align', 'center')
       .style('background-color', 'white')
       .style('border', 'solid')
       .style('border-width', '2px')
@@ -231,18 +231,18 @@ export default class MyChart extends Vue {
 
   mouseOver(d: any, i: number, node: any): void {
     this.tooltip
-      .style('opacity', 1);
+      .style('display', 'block');
   }
 
   mouseMove(d: any, i: number, node: any): void {
     this.tooltip
       .html(d.text)
-      .style('left', (d3.mouse(node[i])[0] + 10) + 'px')
+      .style('left', (d3.mouse(node[i])[0] - 70) + 'px')
       .style('top', (d3.mouse(node[i])[1]) + 'px');
   }
   mouseLeave(d: any, i: number, node: any): void {
     this.tooltip
-      .style('opacity', 0);
+      .style('display', 'none');
   }
 
   mounted(): void {
