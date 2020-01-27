@@ -156,6 +156,50 @@ export default class MyChart extends Vue {
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
         .on('mouseleave', this.mouseLeave);
+    if(this.renderLabelX === true) {
+      this._renderAnnotationsHelper();
+    }
+  }
+
+  _renderAnnotationsHelper(): void {
+    this.svg.selectAll()
+      .data(this.annotations)
+      .enter()
+      .append('line')
+        .attr('x1', 0)
+        .attr('x2', -3)
+        .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;')
+        .on('mouseover', this.mouseOver)
+        .on('mousemove', this.mouseMove)
+        .on('mouseleave', this.mouseLeave);
+
+    this.svg.selectAll()
+      .data(this.annotations)
+      .enter()
+      .append('circle')
+        .attr('cx', -8)
+        .attr('cy', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('r', 5 )
+        .attr('style', 'stroke:black;stroke-width:1;fill:white;')
+        .on('mouseover', this.mouseOver)
+        .on('mousemove', this.mouseMove)
+        .on('mouseleave', this.mouseLeave);
+
+    this.svg.selectAll()
+      .data(this.annotations)
+      .enter()
+      .append('text')
+        .attr('x', -11)
+        .attr('y', (d: any) => this.xScale(new Date(d.timestamp * 1000)) + 3)
+        .text('n')
+        .attr('font-size', '10px')
+        .attr('font-weght', 'bold')
+        .attr('cursor', 'default')
+        .on('mouseover', this.mouseOver)
+        .on('mousemove', this.mouseMove)
+        .on('mouseleave', this.mouseLeave);
   }
 
   renderChart(): void {
