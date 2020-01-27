@@ -34,6 +34,9 @@ export default class MyChart extends Vue {
   @Prop({ required: false, default: [] })
   annotations!: Annotation[];
 
+  @Prop({ required: false, default: '' })
+  annotationLabel: string;
+
   @Prop({ required: false })
   title!: string;
 
@@ -193,7 +196,7 @@ export default class MyChart extends Vue {
       .append('text')
         .attr('x', -11)
         .attr('y', (d: any) => this.xScale(new Date(d.timestamp * 1000)) + 3)
-        .text('n')
+        .text(this.annotationLabel)
         .attr('font-size', '10px')
         .attr('font-weght', 'bold')
         .attr('cursor', 'default')
