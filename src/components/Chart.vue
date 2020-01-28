@@ -49,6 +49,11 @@ export default class MyChart extends Vue {
   @Prop({ required: false, default: true })
   renderLabelX!: boolean;
 
+  @Watch('timeSeries')
+  onTimeSeriesChange(): void {
+    this.renderChart();
+  }
+
   get metricNames(): string[] {
     return this.timeSeries.columns;
   }
