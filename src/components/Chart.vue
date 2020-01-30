@@ -1,6 +1,6 @@
 <template>
 <div :id="id" class="chart">
-  <h6>{{ title }} test</h6>
+  <h6>{{ title }}</h6>
   <div class="chart-container">
     <svg width="100%" height="100%"> </svg>
   </div>
@@ -194,7 +194,7 @@ export default class MyChart extends Vue {
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
         .on('mouseleave', this.mouseLeave)
-        .on('click', () => console.log('lol'));
+        .on('click', this.onClick);
 
     this.svg.selectAll()
       .data(this.annotations)
