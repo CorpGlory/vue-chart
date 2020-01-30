@@ -210,7 +210,7 @@ export default class MyChart extends Vue {
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
         .on('mouseleave', this.mouseLeave)
-        .on('click', this.onClick);
+        .on('click', (d: any) => this.onClick(d));
 
     this.svg.selectAll()
       .data(this.annotations)
