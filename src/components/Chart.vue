@@ -52,6 +52,9 @@ export default class MyChart extends Vue {
   @Prop({ required: false, default: true })
   renderLabelX!: boolean;
 
+  @Prop({ required: false })
+  onClick!: Function;
+
   @Watch('timeSeries')
   onTimeSeriesChange(): void {
     this.renderChart();
@@ -206,7 +209,8 @@ export default class MyChart extends Vue {
         .attr('style', 'stroke:black;stroke-width:1;fill:white;')
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
-        .on('mouseleave', this.mouseLeave);
+        .on('mouseleave', this.mouseLeave)
+        .on('click', (d: any) => this.onClick(d));
 
     this.svg.selectAll()
       .data(this.annotations)
