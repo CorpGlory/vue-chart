@@ -240,7 +240,8 @@ export default class MyChart extends Vue {
       .style('border', 'solid')
       .style('border-width', '2px')
       .style('border-radius', '5px')
-      .style('padding', '5px');
+      .style('padding', '5px')
+      .style('z-index', '100');
   }
 
   mouseOver(d: any, i: number, node: any): void {
