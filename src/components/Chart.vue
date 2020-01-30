@@ -1,6 +1,6 @@
 <template>
 <div :id="id" class="chart">
-  <h6>{{ title }}</h6>
+  <h6>{{ title }} test</h6>
   <div class="chart-container">
     <svg width="100%" height="100%"> </svg>
   </div>
@@ -48,6 +48,9 @@ export default class MyChart extends Vue {
 
   @Prop({ required: false, default: true })
   renderLabelX!: boolean;
+
+  @Prop({ required: false })
+  onClick!: Function;
 
   @Watch('timeSeries')
   onTimeSeriesChange(): void {
@@ -190,7 +193,8 @@ export default class MyChart extends Vue {
         .attr('style', 'stroke:black;stroke-width:1;fill:white;')
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
-        .on('mouseleave', this.mouseLeave);
+        .on('mouseleave', this.mouseLeave)
+        .on('click', () => console.log('lol'));
 
     this.svg.selectAll()
       .data(this.annotations)
