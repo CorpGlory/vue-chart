@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { findMaxMetricValue, formatTimeTicks } from '@/utils';
-import { TimeSeries, Annotation } from '@/types';
+import { TimeSeries, Annotation, AnnotationHelperPosition } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
@@ -17,6 +17,8 @@ import * as d3 from 'd3';
 import * as _ from 'lodash';
 
 const DEFAULT_MARGIN = { top: 20, right: 40, bottom: 20, left: 70 };
+
+const ANNOTATION_HELPER_PARAMS = { lineX1: 0, lineX2: 3, circleX: 8, textX: 11 };
 
 @Component
 export default class MyChart extends Vue {
@@ -39,6 +41,9 @@ export default class MyChart extends Vue {
 
   @Prop({ required: false, default: '' })
   annotationLabel!: string;
+
+  @Prop({ required: false, default: AnnotationHelperPosition.NONE })
+  annotationHelper!: AnnotationHelperPosition;
 
   @Prop({ required: false })
   title!: string;
@@ -180,30 +185,35 @@ export default class MyChart extends Vue {
         .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;');
-    if(this.renderLabelX === true) {
+    if(this.annotationHelper !== AnnotationHelperPosition.NONE) {
       this._renderAnnotationsHelper();
     }
   }
 
   _renderAnnotationsHelper(): void {
+    let k = -1;
+    let shift = 0;
+    if (this.annotationHelper === AnnotationHelperPosition.RIGHT) {
+      k = 1;
+      shift = this.yScale(this.maxMetricValue);
+    }
     this.svg.selectAll()
       .data(this.annotations)
       .enter()
       .append('line')
-        .attr('x1', 0)
-        .attr('x2', -3)
+        .attr('x1', shift + k * ANNOTATION_HELPER_PARAMS.lineX1)
+        .attr('x2', shift + k * ANNOTATION_HELPER_PARAMS.lineX2)
         .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;')
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
         .on('mouseleave', this.mouseLeave);
-
     this.svg.selectAll()
       .data(this.annotations)
       .enter()
       .append('circle')
-        .attr('cx', -8)
+        .attr('cx', shift + k * ANNOTATION_HELPER_PARAMS.circleX)
         .attr('cy', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('r', 5 )
         .attr('style', 'stroke:black;stroke-width:1;fill:white;')
@@ -216,7 +226,7 @@ export default class MyChart extends Vue {
       .data(this.annotations)
       .enter()
       .append('text')
-        .attr('x', -11)
+        .attr('x', shift + k * ANNOTATION_HELPER_PARAMS.textX)
         .attr('y', (d: any) => this.xScale(new Date(d.timestamp * 1000)) + 3)
         .text(this.annotationLabel)
         .attr('font-size', '10px')
@@ -251,7 +261,8 @@ export default class MyChart extends Vue {
       .style('border', 'solid')
       .style('border-width', '2px')
       .style('border-radius', '5px')
-      .style('padding', '5px');
+      .style('padding', '5px')
+      .style('z-index', '100');
   }
 
   mouseOver(d: any, i: number, node: any): void {
