@@ -33,6 +33,9 @@ export default class MyChart extends Vue {
   @Prop({ required: true })
   timeSeries!: TimeSeries;
 
+  @Prop({ required: false })
+  zoom!: number;
+
   @Prop({ required: false, default: [] })
   annotations!: Annotation[];
 
@@ -53,6 +56,9 @@ export default class MyChart extends Vue {
 
   @Prop({ required: false, default: true })
   renderLabelX!: boolean;
+
+  @Prop({ required: false })
+  onClick!: Function;
 
   @Watch('timeSeries')
   onTimeSeriesChange(): void {
@@ -97,12 +103,25 @@ export default class MyChart extends Vue {
     return maxValue;
   }
 
+  get zoomLowerValue(): any {
+    let lowerValue = 0
+    const valuesLength = this.values.length;
+    if(this.zoom !== undefined && valuesLength > this.zoom) {
+      lowerValue = this.values.length - this.zoom;
+    }
+    return new Date(this.values[lowerValue][0]);
+  }
+
+  get zoomUpperValue(): any {
+    return new Date(this.values[this.values.length - 1][0]);
+  }
+
   get xScale(): any {
     // x is vertical axis
     return d3.scaleTime()
       .domain([
-        new Date(this.values[0][0]),
-        new Date(this.values[this.values.length - 1][0])
+        this.zoomLowerValue,
+        this.zoomUpperValue
       ])
       .range([0, this.height]);
   }
@@ -200,7 +219,9 @@ export default class MyChart extends Vue {
         .attr('style', 'stroke:black;stroke-width:1;fill:white;')
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
-        .on('mouseleave', this.mouseLeave);
+        .on('mouseleave', this.mouseLeave)
+        .on('click', (d: any) => this.onClick(d));
+
     this.svg.selectAll()
       .data(this.annotations)
       .enter()
