@@ -34,7 +34,7 @@ export default class MyChart extends Vue {
   timeSeries!: TimeSeries;
 
   @Prop({ required: false })
-  zoom!: number;
+  zoom!: any;
 
   @Prop({ required: false, default: [] })
   annotations!: Annotation[];
@@ -62,6 +62,11 @@ export default class MyChart extends Vue {
 
   @Watch('timeSeries')
   onTimeSeriesChange(): void {
+    this.renderChart();
+  }
+
+  @Watch('zoom')
+  onZoomChange(): void {
     this.renderChart();
   }
 
@@ -104,6 +109,10 @@ export default class MyChart extends Vue {
   }
 
   get zoomLowerValue(): any {
+    if(this.zoom.x !== undefined) {
+      return this.zoom.x[0];
+    }
+
     let lowerValue = 0
     const valuesLength = this.values.length;
     if(this.zoom !== undefined && valuesLength > this.zoom) {
@@ -113,6 +122,10 @@ export default class MyChart extends Vue {
   }
 
   get zoomUpperValue(): any {
+    if(this.zoom.x !== undefined) {
+      return this.zoom.x[1];
+    }
+
     return new Date(this.values[this.values.length - 1][0]);
   }
 
