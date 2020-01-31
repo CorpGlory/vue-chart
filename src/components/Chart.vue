@@ -266,19 +266,23 @@ export default class MyChart extends Vue {
   }
 
   mouseOver(d: any, i: number, node: any): void {
-    this.tooltip
-      .style('display', 'block');
+    this.$emit('tooltip', {
+      displayed: true
+    });
   }
 
   mouseMove(d: any, i: number, node: any): void {
-    this.tooltip
-      .html(d.text)
-      .style('left', (d3.mouse(node[i])[0] - 70) + 'px')
-      .style('top', (d3.mouse(node[i])[1]) + 'px');
+    this.$emit('tooltip', {
+      displayed: true,
+      x: d3.event.clientX - 125,
+      y: d3.event.clientY - 60,
+      content: d.text
+    });
   }
   mouseLeave(d: any, i: number, node: any): void {
-    this.tooltip
-      .style('display', 'none');
+    this.$emit('tooltip', {
+      displayed: false
+    });
   }
 
   mounted(): void {
