@@ -109,7 +109,7 @@ export default class MyChart extends Vue {
   }
 
   get zoomLowerValue(): any {
-    if(this.zoom.x !== undefined) {
+    if(this.zoom !== undefined && this.zoom.x !== undefined) {
       return this.zoom.x[0];
     }
 
@@ -122,7 +122,7 @@ export default class MyChart extends Vue {
   }
 
   get zoomUpperValue(): any {
-    if(this.zoom.x !== undefined) {
+    if(this.zoom !== undefined && this.zoom.x !== undefined) {
       return this.zoom.x[1];
     }
 
@@ -198,18 +198,21 @@ export default class MyChart extends Vue {
         .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;');
+
     if(this.annotationHelper !== AnnotationHelperPosition.NONE) {
       this._renderAnnotationsHelper();
     }
   }
 
   _renderAnnotationsHelper(): void {
+    // TODO: refactor
     let k = -1;
     let shift = 0;
     if (this.annotationHelper === AnnotationHelperPosition.RIGHT) {
       k = 1;
       shift = this.yScale(this.maxMetricValue);
     }
+
     this.svg.selectAll()
       .data(this.annotations)
       .enter()
@@ -222,6 +225,7 @@ export default class MyChart extends Vue {
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
         .on('mouseleave', this.mouseLeave);
+
     this.svg.selectAll()
       .data(this.annotations)
       .enter()
@@ -251,6 +255,7 @@ export default class MyChart extends Vue {
   }
 
   renderChart(): void {
+    console.log('re-render');
     if(this.metricNames.length === 0) {
       throw new Error('There should be at least 1 metric');
     }
@@ -262,29 +267,14 @@ export default class MyChart extends Vue {
     this._renderAnnotations();
   }
 
-  renderTooltip(): void {
-    this.tooltip = d3.select(`#${this.id}`)
-      .append('div')
-      .style('width', '250px')
-      .style('height', '50px')
-      .style('display', 'none')
-      .style('position', 'absolute')
-      .style('text-align', 'center')
-      .style('background-color', 'white')
-      .style('border', 'solid')
-      .style('border-width', '2px')
-      .style('border-radius', '5px')
-      .style('padding', '5px')
-      .style('z-index', '100');
-  }
-
-  mouseOver(d: any, i: number, node: any): void {
+  mouseOver(): void {
     this.$emit('tooltip', {
       displayed: true
     });
   }
 
-  mouseMove(d: any, i: number, node: any): void {
+  // TODO: not any
+  mouseMove(d: any): void {
     this.$emit('tooltip', {
       displayed: true,
       x: d3.event.clientX - 125,
@@ -292,7 +282,7 @@ export default class MyChart extends Vue {
       content: d.text
     });
   }
-  mouseLeave(d: any, i: number, node: any): void {
+  mouseLeave(): void {
     this.$emit('tooltip', {
       displayed: false
     });
@@ -301,7 +291,6 @@ export default class MyChart extends Vue {
   mounted(): void {
     this.d3Node = d3.select(this.$el);
 
-    this.renderTooltip();
     this.renderChart();
   }
 }
