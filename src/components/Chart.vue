@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { findMaxMetricValue, formatTimeTicks } from '@/utils';
-import { TimeSeries, Annotation, AnnotationHelperPosition } from '@/types';
+import { Annotation, AnnotationHelperPosition } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
@@ -31,7 +31,13 @@ export default class MyChart extends Vue {
   id!: number;
 
   @Prop({ required: true })
-  timeSeries!: TimeSeries;
+  columns!: string[];
+
+  @Prop({ required: true })
+  values!: number[][];
+
+  @Prop({ required: true })
+  colors!: string[];
 
   @Prop({ required: false })
   zoom!: any;
@@ -57,10 +63,7 @@ export default class MyChart extends Vue {
   @Prop({ required: false, default: true })
   renderLabelX!: boolean;
 
-  @Prop({ required: false })
-  onClick!: Function;
-
-  @Watch('timeSeries')
+  @Watch('values')
   onTimeSeriesChange(): void {
     this.renderChart();
   }
@@ -71,16 +74,7 @@ export default class MyChart extends Vue {
   }
 
   get metricNames(): string[] {
-    return this.timeSeries.columns;
-  }
-
-  get values(): number[][] {
-    // TODO: convert "time" column to date
-    return this.timeSeries.values;
-  }
-
-  get colors(): string[] {
-    return this.timeSeries.colors;
+    return this.columns;
   }
 
   get width(): number {
@@ -237,7 +231,7 @@ export default class MyChart extends Vue {
         .on('mouseover', this.mouseOver)
         .on('mousemove', this.mouseMove)
         .on('mouseleave', this.mouseLeave)
-        .on('click', (d: any) => this.onClick(d));
+        .on('click', (d: any) => this.$emit('click', d));
 
     this.svg.selectAll()
       .data(this.annotations)
