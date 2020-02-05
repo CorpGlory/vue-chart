@@ -102,12 +102,43 @@ export default class MyChart extends Vue {
     return maxValue;
   }
 
+  // TODO: refactor: duplication with zoomLowerValue
+  get zoomLowerIndex(): any {
+    if(this.zoom !== undefined && this.zoom.x !== undefined) {
+      let index = _.findIndex(this.values, value => value[0] >= this.zoom.x[0]);
+      if(index > 0) {
+        index--;
+      }
+      return index;
+    }
+
+    let lowerValue = 0;
+    const valuesLength = this.values.length;
+    if(this.zoom !== undefined && valuesLength > this.zoom) {
+      lowerValue = this.values.length - this.zoom;
+    }
+    return lowerValue;
+  }
+
+  // TODO: refactor: duplication with zoomUpperValue
+  get zoomUpperIndex(): any {
+    if(this.zoom !== undefined && this.zoom.x !== undefined && this.zoom.x[1] !== undefined) {
+      let index = _.findLastIndex(this.values, value => value[0] <= this.zoom.x[1]);
+      if(index < this.values.length - 1) {
+        index++;
+      }
+      return index;
+    }
+
+    return this.values.length - 1;
+  }
+
   get zoomLowerValue(): any {
     if(this.zoom !== undefined && this.zoom.x !== undefined) {
       return this.zoom.x[0];
     }
 
-    let lowerValue = 0
+    let lowerValue = 0;
     const valuesLength = this.values.length;
     if(this.zoom !== undefined && valuesLength > this.zoom) {
       lowerValue = this.values.length - this.zoom;
@@ -116,7 +147,7 @@ export default class MyChart extends Vue {
   }
 
   get zoomUpperValue(): any {
-    if(this.zoom !== undefined && this.zoom.x !== undefined) {
+    if(this.zoom !== undefined && this.zoom.x !== undefined && this.zoom.x[1] !== undefined) {
       return this.zoom.x[1];
     }
 
@@ -175,7 +206,7 @@ export default class MyChart extends Vue {
       .y((d: any) => this.xScale(d[0]));
 
     this.svg.append('path')
-      .datum(this.values)
+      .datum(_.slice(this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1))
       .attr('fill', 'none')
       .attr('stroke', this.colors[idx])
       .attr('stroke-width', 1)
