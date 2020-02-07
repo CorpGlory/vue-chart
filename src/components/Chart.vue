@@ -330,7 +330,7 @@ export default class MyChart extends Vue {
     this.$emit('mouse-move', {
       point: [x, y],
       mouse: [d3.event.clientX - 125, d3.event.clientY + 30],
-      value: `${d[1].toFixed(2)}`
+      value: `${d[0].toLocaleString()}<br/>${d[1].toFixed(2)}`
     });
 
     this.crosshair.select('#crosshair-circle')
