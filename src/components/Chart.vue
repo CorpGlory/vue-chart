@@ -329,7 +329,7 @@ export default class MyChart extends Vue {
 
     this.$emit('mouse-move', {
       point: [x, y],
-      mouse: coordinates,
+      mouse: [d3.event.clientX - 125, d3.event.clientY - 60],
       value: `${d[1].toFixed(2)}`
     });
 
