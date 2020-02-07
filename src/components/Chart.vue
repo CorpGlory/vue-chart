@@ -297,26 +297,18 @@ export default class MyChart extends Vue {
       .style('stroke-width', '2px');
 
     const onMouseMove = this.onMouseMove.bind(this);
-    const emit = this.$emit.bind(this);
     this.svg.append('rect')
       .style('fill', 'none')
       .style('stroke', 'none')
       .style('pointer-events', 'all')
+      .style('cursor', 'crosshair')
       .attr('width', this.width)
       .attr('height', this.height)
-      .on('mouseover', () => {
-        this.$emit('mouse-over');
-        this.onMouseOver();
-      })
-      .on('mouseout', () => {
-        this.$emit('mouse-out');
-        this.onMouseOut();
-      })
+      .on('mouseover', this.onMouseOver.bind(this))
+      .on('mouseout', this.onMouseOut.bind(this))
       .on('mousemove', function() {
         // @ts-ignore
         const coordinates = d3.mouse(this);
-
-        emit('mouse-move', coordinates);
         onMouseMove(coordinates);
       });
   }
@@ -335,6 +327,12 @@ export default class MyChart extends Vue {
     const x = this.yScale(d[1]);
     const y = this.xScale(d[0]);
 
+    this.$emit('mouse-move', {
+      point: [x, y],
+      mouse: [d3.event.clientX - 125, d3.event.clientY + 30],
+      value: `${d[1].toFixed(2)}`
+    });
+
     this.crosshair.select('#crosshair-circle')
       .attr('cx', x)
       .attr('cy', y);
@@ -344,10 +342,12 @@ export default class MyChart extends Vue {
   }
 
   onMouseOver(): void {
+    this.$emit('mouse-over');
     this.crosshair.style('display', null);
   }
 
   onMouseOut(): void {
+    this.$emit('mouse-out');
     this.crosshair.style('display', 'none');
   }
 
