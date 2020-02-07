@@ -26,6 +26,7 @@ export default class MyChart extends Vue {
   d3Node: any;
   svg: any;
   tooltip: any;
+  crosshair: any;
 
   @Prop({ required: true })
   id!: number;
@@ -34,7 +35,7 @@ export default class MyChart extends Vue {
   columns!: string[];
 
   @Prop({ required: true })
-  values!: number[][];
+  values!: [number, number][];
 
   @Prop({ required: true })
   colors!: string[];
@@ -222,7 +223,7 @@ export default class MyChart extends Vue {
         .attr('x2', this.yScale(this.maxMetricValue))
         .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
-        .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;');
+        .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:2,2;');
 
     if(this.annotationHelper !== AnnotationHelperPosition.NONE) {
       this._renderAnnotationsHelper();
@@ -247,9 +248,9 @@ export default class MyChart extends Vue {
         .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;')
-        .on('mouseover', this.mouseOver)
-        .on('mousemove', this.mouseMove)
-        .on('mouseleave', this.mouseLeave);
+        .on('mouseover', this.onAnnotationMouseOver)
+        .on('mousemove', this.onAnnotationMouseMove)
+        .on('mouseleave', this.onAnnotationMouseLeave);
 
     this.svg.selectAll()
       .data(this.annotations)
@@ -259,9 +260,9 @@ export default class MyChart extends Vue {
         .attr('cy', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
         .attr('r', 5 )
         .attr('style', 'stroke:black;stroke-width:1;fill:white;')
-        .on('mouseover', this.mouseOver)
-        .on('mousemove', this.mouseMove)
-        .on('mouseleave', this.mouseLeave)
+        .on('mouseover', this.onAnnotationMouseOver)
+        .on('mousemove', this.onAnnotationMouseMove)
+        .on('mouseleave', this.onAnnotationMouseLeave)
         .on('click', (d: any) => this.$emit('click', d));
 
     this.svg.selectAll()
@@ -274,9 +275,80 @@ export default class MyChart extends Vue {
         .attr('font-size', '10px')
         .attr('font-weght', 'bold')
         .attr('cursor', 'default')
-        .on('mouseover', this.mouseOver)
-        .on('mousemove', this.mouseMove)
-        .on('mouseleave', this.mouseLeave);
+        .on('mouseover', this.onAnnotationMouseOver)
+        .on('mousemove', this.onAnnotationMouseMove)
+        .on('mouseleave', this.onAnnotationMouseLeave);
+  }
+
+  _renderCrosshair(): void {
+    this.crosshair = this.svg.append('g')
+      .style('display', 'none');
+
+    this.crosshair.append('line')
+      .attr('id', 'crosshair-line-y')
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', '0.5px');
+    this.crosshair.append('circle')
+      .attr('id', 'crosshair-circle')
+      .attr('r', 5)
+      .style('fill', 'white')
+      .style('stroke', 'steelblue')
+      .style('stroke-width', '2px');
+
+    const onMouseMove = this.onMouseMove;
+    const emit = this.$emit;
+    this.svg.append('rect')
+      .style('fill', 'none')
+      .style('stroke', 'none')
+      .style('pointer-events', 'all')
+      .attr('width', this.width)
+      .attr('height', this.height)
+      .on('mouseover', () => {
+        this.$emit('mouse-over');
+        this.onMouseOver();
+      })
+      .on('mouseout', () => {
+        this.$emit('mouse-out');
+        this.onMouseOut();
+      })
+      .on('mousemove', function() {
+        // @ts-ignore
+        const coordinates = d3.mouse(this);
+
+        emit('mouse-move', coordinates);
+        onMouseMove(coordinates);
+      });
+  }
+
+  onMouseMove(coordinates: [number, number]): void {
+    const bisectDate = d3.bisector((d: [number, number]) => d[0]).left;
+
+    const mouseDate = this.xScale.invert(coordinates[1]);
+    const i = bisectDate(this.values, mouseDate);
+
+    const d0 = this.values[i - 1];
+    const d1 = this.values[i];
+
+    const d = mouseDate - d0[0] > d1[0] - mouseDate ? d1 : d0;
+
+    const x = this.yScale(d[1]);
+    const y = this.xScale(d[0]);
+
+    this.crosshair.select('#crosshair-circle')
+      .attr('cx', x)
+      .attr('cy', y);
+    this.crosshair.select('#crosshair-line-y')
+      .attr('x1', this.yScale(0)).attr('y1', y)
+      .attr('x2', this.yScale(this.maxMetricValue)).attr('y2', y);
+  }
+
+  onMouseOver(): void {
+    this.crosshair.style('display', null);
+  }
+
+  onMouseOut(): void {
+    this.crosshair.style('display', 'none');
   }
 
   renderChart(): void {
@@ -290,16 +362,17 @@ export default class MyChart extends Vue {
 
     this.metricNames.forEach(this._renderMetric);
     this._renderAnnotations();
+    this._renderCrosshair();
   }
 
-  mouseOver(): void {
+  onAnnotationMouseOver(): void {
     this.$emit('tooltip', {
       displayed: true
     });
   }
 
   // TODO: not any
-  mouseMove(d: any): void {
+  onAnnotationMouseMove(d: any): void {
     this.$emit('tooltip', {
       displayed: true,
       x: d3.event.clientX - 125,
@@ -307,7 +380,7 @@ export default class MyChart extends Vue {
       content: d.text
     });
   }
-  mouseLeave(): void {
+  onAnnotationMouseLeave(): void {
     this.$emit('tooltip', {
       displayed: false
     });
