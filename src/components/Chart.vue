@@ -296,8 +296,8 @@ export default class MyChart extends Vue {
       .style('stroke', 'steelblue')
       .style('stroke-width', '2px');
 
-    const onMouseMove = this.onMouseMove;
-    const emit = this.$emit;
+    const onMouseMove = this.onMouseMove.bind(this);
+    const emit = this.$emit.bind(this);
     this.svg.append('rect')
       .style('fill', 'none')
       .style('stroke', 'none')
