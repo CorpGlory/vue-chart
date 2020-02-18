@@ -180,6 +180,12 @@ export default class MyChart extends Vue {
     }
   }
 
+  get annotationsInTimerange(): Annotation[] {
+    return this.annotations.filter(
+      annotation => annotation.date >= this.zoom.x[0] && annotation.date <= this.zoom.x[1]
+    );
+  }
+
   _createSvg(): void {
     this.d3Node.selectAll('svg *').remove();
 
@@ -216,13 +222,13 @@ export default class MyChart extends Vue {
 
   _renderAnnotations(): void {
     this.svg.selectAll()
-      .data(this.annotations)
+      .data(this.annotationsInTimerange)
       .enter()
       .append('line')
         .attr('x1', this.yScale(0))
         .attr('x2', this.yScale(this.maxMetricValue))
-        .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
-        .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('y1', (d: any) => this.xScale(d.date))
+        .attr('y2', (d: any) => this.xScale(d.date))
         .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:2,2;');
 
     if(this.annotationHelper !== AnnotationHelperPosition.NONE) {
@@ -240,24 +246,24 @@ export default class MyChart extends Vue {
     }
 
     this.svg.selectAll()
-      .data(this.annotations)
+      .data(this.annotationsInTimerange)
       .enter()
       .append('line')
         .attr('x1', shift + k * ANNOTATION_HELPER_PARAMS.lineX1)
         .attr('x2', shift + k * ANNOTATION_HELPER_PARAMS.lineX2)
-        .attr('y1', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
-        .attr('y2', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('y1', (d: any) => this.xScale(d.date))
+        .attr('y2', (d: any) => this.xScale(d.date))
         .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;')
         .on('mouseover', this.onAnnotationMouseOver)
         .on('mousemove', this.onAnnotationMouseMove)
         .on('mouseleave', this.onAnnotationMouseLeave);
 
     this.svg.selectAll()
-      .data(this.annotations)
+      .data(this.annotationsInTimerange)
       .enter()
       .append('circle')
         .attr('cx', shift + k * ANNOTATION_HELPER_PARAMS.circleX)
-        .attr('cy', (d: any) => this.xScale(new Date(d.timestamp * 1000)))
+        .attr('cy', (d: any) => this.xScale(d.date))
         .attr('r', 5 )
         .attr('style', 'stroke:black;stroke-width:1;fill:white;')
         .on('mouseover', this.onAnnotationMouseOver)
@@ -266,11 +272,11 @@ export default class MyChart extends Vue {
         .on('click', (d: any) => this.$emit('click', d));
 
     this.svg.selectAll()
-      .data(this.annotations)
+      .data(this.annotationsInTimerange)
       .enter()
       .append('text')
         .attr('x', shift + k * ANNOTATION_HELPER_PARAMS.textX)
-        .attr('y', (d: any) => this.xScale(new Date(d.timestamp * 1000)) + 3)
+        .attr('y', (d: any) => this.xScale(d.date) + 3)
         .text(this.annotationLabel)
         .attr('font-size', '10px')
         .attr('font-weght', 'bold')
