@@ -1,5 +1,5 @@
 export type Annotation = {
-  timestamp: number,
+  date: Date,
   text: string
 };
 
