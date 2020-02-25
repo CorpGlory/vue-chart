@@ -25,7 +25,6 @@ export default class MyChart extends Vue {
 
   d3Node: any;
   svg: any;
-  tooltip: any;
   crosshair: any;
 
   @Prop({ required: true })
@@ -333,10 +332,20 @@ export default class MyChart extends Vue {
     const x = this.yScale(d[1]);
     const y = this.xScale(d[0]);
 
+    let value = d[0].toLocaleString();
+    for(let i = 1; i < d.length; i++) {
+      value += `<br/>${this.metricNames[i - 1]}: ${d[i].toFixed(2)}`
+    }
+
+    let yOffset = 0;
+    if(d.length >= 4) {
+      yOffset = (d.length - 4) * 30;
+    }
+
     this.$emit('mouse-move', {
       point: [x, y],
-      mouse: [d3.event.clientX - 125, d3.event.clientY + 30],
-      value: `${d[0].toLocaleString()}<br/>${d[1].toFixed(2)}`
+      mouse: [d3.event.clientX, d3.event.clientY - yOffset],
+      value
     });
 
     this.crosshair.select('#crosshair-circle')
