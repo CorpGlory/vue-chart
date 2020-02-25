@@ -359,12 +359,13 @@ export default class MyChart extends Vue {
 
   renderChart(): void {
     console.log('re-render');
-    if(this.metricNames.length === 0) {
-      throw new Error('There should be at least 1 metric');
-    }
 
     this._createSvg();
     this._renderAxes();
+
+    if(this.metricNames.length === 0) {
+      throw new Error('There should be at least 1 metric');
+    }
 
     this.metricNames.forEach(this._renderMetric);
     this._renderAnnotations();
