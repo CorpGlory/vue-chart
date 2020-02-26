@@ -63,6 +63,9 @@ export default class MyChart extends Vue {
   @Prop({ required: false, default: true })
   renderLabelX!: boolean;
 
+  @Prop({ required: false, default: 0.5 })
+  strokeOpacity!: number;
+
   @Watch('values')
   onTimeSeriesChange(): void {
     this.renderChart();
@@ -216,6 +219,7 @@ export default class MyChart extends Vue {
       .attr('fill', 'none')
       .attr('stroke', this.colors[idx])
       .attr('stroke-width', 1)
+      .attr('stroke-opacity', this.strokeOpacity)
       .attr('d', lineGenerator);
   }
 
@@ -392,7 +396,7 @@ export default class MyChart extends Vue {
     this.$emit('tooltip', {
       displayed: true,
       x: d3.event.clientX - 125,
-      y: d3.event.clientY - 60,
+      y: d3.event.clientY - 70,
       content: d.text
     });
   }
