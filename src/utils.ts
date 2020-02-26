@@ -4,13 +4,13 @@ import _ from 'lodash';
 
 type DateLike = Date | number | { valueOf(): number };
 
-const formatMillisecond = d3.timeFormat('.%L');
-const formatSecond = d3.timeFormat(':%S');
+const formatMillisecond = d3.timeFormat('%d %b %H:%M:%S.%L');
+const formatSecond = d3.timeFormat('%d %b %H:%M:%S');
 const formatMinute = d3.timeFormat('%d %b %H:%M');
-const formatHour = d3.timeFormat('%d %b %H:00');
+const formatHour = d3.timeFormat('%d %b %H:%M');
 const formatDay = d3.timeFormat('%d %b');
-const formatWeek = d3.timeFormat('%b %d');
-const formatMonth = d3.timeFormat('%B');
+const formatWeek = d3.timeFormat('%d %b');
+const formatMonth = d3.timeFormat('%d %B');
 const formatYear = d3.timeFormat('%Y');
 
 function fromDateLikeToDate(d: DateLike): Date {
