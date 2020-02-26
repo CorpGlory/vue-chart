@@ -1,8 +1,8 @@
 <template>
 <div :id="id" class="chart">
-  <h6>{{ title }}</h6>
+  <h6 v-if="title !== undefined">{{ title }}</h6>
   <div class="chart-container">
-    <svg width="100%" height="100%"> </svg>
+    <svg width="100%" height="100%" />
   </div>
 </div>
 </template>
