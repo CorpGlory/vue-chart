@@ -32114,13 +32114,13 @@ var lodash_default = /*#__PURE__*/__webpack_require__.n(lodash);
 // CONCATENATED MODULE: ./src/utils.ts
 
 
-var utils_formatMillisecond = timeFormat('.%L');
-var utils_formatSecond = timeFormat(':%S');
-var utils_formatMinute = timeFormat('%d %b %H:%M');
-var utils_formatHour = timeFormat('%d %b %H:00');
+var utils_formatMillisecond = timeFormat('%H:%M:%S.%L');
+var utils_formatSecond = timeFormat('%H:%M:%S');
+var utils_formatMinute = timeFormat('%H:%M');
+var utils_formatHour = timeFormat('%d %b %H:%M');
 var utils_formatDay = timeFormat('%d %b');
-var utils_formatWeek = timeFormat('%b %d');
-var utils_formatMonth = timeFormat('%B');
+var utils_formatWeek = timeFormat('%d %b');
+var utils_formatMonth = timeFormat('%d %B');
 var utils_formatYear = timeFormat('%Y');
 
 function fromDateLikeToDate(d) {
