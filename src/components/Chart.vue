@@ -396,7 +396,7 @@ export default class MyChart extends Vue {
     this.$emit('tooltip', {
       displayed: true,
       x: d3.event.clientX - 125,
-      y: d3.event.clientY - 60,
+      y: d3.event.clientY - 70,
       content: d.text
     });
   }
