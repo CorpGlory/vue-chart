@@ -4,9 +4,9 @@ import _ from 'lodash';
 
 type DateLike = Date | number | { valueOf(): number };
 
-const formatMillisecond = d3.timeFormat('%d %b %H:%M:%S.%L');
-const formatSecond = d3.timeFormat('%d %b %H:%M:%S');
-const formatMinute = d3.timeFormat('%d %b %H:%M');
+const formatMillisecond = d3.timeFormat('%H:%M:%S.%L');
+const formatSecond = d3.timeFormat('%H:%M:%S');
+const formatMinute = d3.timeFormat('%H:%M');
 const formatHour = d3.timeFormat('%d %b %H:%M');
 const formatDay = d3.timeFormat('%d %b');
 const formatWeek = d3.timeFormat('%d %b');
