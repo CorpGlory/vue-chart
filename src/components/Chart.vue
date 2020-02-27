@@ -26,6 +26,7 @@ export default class MyChart extends Vue {
   d3Node: any;
   svg: any;
   crosshair: any;
+  brush: any;
 
   @Prop({ required: true })
   id!: number;
@@ -400,6 +401,33 @@ export default class MyChart extends Vue {
     this.metricNames.forEach(this._renderMetric);
     this._renderAnnotations();
     this._renderCrosshair();
+
+    this.brush = d3.brushY()
+      .extent([
+        [0,0],
+        [this.width,this.height]
+      ])
+      .handleSize(20)
+      .on('end', this.brushed);
+    this.svg
+      .call(this.brush);
+  }
+
+  brushed(): void {
+    const extent = d3.event.selection;
+    if(extent === undefined || extent === null) {
+      return;
+    }
+    const startDate = this.xScale.invert(extent[0]);
+    const endDate = this.xScale.invert(extent[1]);
+    const timestampRange = endDate.getTime() - startDate.getTime();;
+    if(timestampRange/1000 < 15*60) {
+      return;
+    }
+    this.$emit('change-zoom', {
+      start: startDate,
+      end: endDate
+    });
   }
 
   onAnnotationMouseOver(): void {
