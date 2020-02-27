@@ -195,17 +195,17 @@ export default class MyChart extends Vue {
     this.svg = this.d3Node
       .select('svg')
       .append('g')
-        .attr('transform', `translate(${this.margin.left},${this.margin.top})`)
-      .call(
-        d3.zoom().on(
-          'zoom', 
-          () => {
-            if(d3.event.sourceEvent.shiftKey === true) {
-              this._onPanning();
-            }
-          }
-        )
-      );
+        .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+      // .call(
+      //   d3.zoom().on(
+      //     'zoom', 
+      //     () => {
+      //       if(d3.event.sourceEvent.shiftKey === true) {
+      //         this._onPanning();
+      //       }
+      //     }
+      //   )
+      // );
   }
 
   _onPanning(): void {
