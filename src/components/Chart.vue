@@ -421,7 +421,9 @@ export default class MyChart extends Vue {
     const startDate = this.xScale.invert(extent[0]);
     const endDate = this.xScale.invert(extent[1]);
     const timestampRange = endDate.getTime() - startDate.getTime();;
-    if(timestampRange/1000 < 15*60) {
+    if(timestampRange / 1000 < 15 * 60) {
+      this.svg
+        .call(this.brush.move, null);
       return;
     }
     this.$emit('change-zoom', {
