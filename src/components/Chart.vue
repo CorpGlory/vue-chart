@@ -198,7 +198,7 @@ export default class MyChart extends Vue {
         .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
       // .call(
       //   d3.zoom().on(
-      //     'zoom', 
+      //     'zoom',
       //     () => {
       //       if(d3.event.sourceEvent.shiftKey === true) {
       //         this._onPanning();
@@ -401,7 +401,6 @@ export default class MyChart extends Vue {
     this.metricNames.forEach(this._renderMetric);
     this._renderAnnotations();
     this._renderCrosshair();
-
     this.brush = d3.brushY()
       .extent([
         [0,0],
@@ -409,8 +408,18 @@ export default class MyChart extends Vue {
       ])
       .handleSize(20)
       .on('end', this.brushed);
+
+    const onMouseMove = this.onMouseMove.bind(this)
     this.svg
-      .call(this.brush);
+      .call(this.brush)
+      .on('mouseover', this.onMouseOver.bind(this))
+      .on('mouseout', this.onMouseOut.bind(this))
+      .on('mousemove', function() {
+        // @ts-ignore
+        const coordinates = d3.mouse(this);
+        onMouseMove(coordinates);
+      });
+
   }
 
   brushed(): void {
