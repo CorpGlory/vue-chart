@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { findMaxMetricValue, formatTimeTicks } from '@/utils';
-import { Annotation, AnnotationHelperPosition } from '@/types';
+import { Annotation, AnnotationHelperPosition, ZoomLimits } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
@@ -19,6 +19,8 @@ import * as _ from 'lodash';
 const DEFAULT_MARGIN = { top: 20, right: 40, bottom: 20, left: 70 };
 
 const ANNOTATION_HELPER_PARAMS = { lineX1: 0, lineX2: 3, circleX: 8, textX: 11 };
+
+const DEFAULT_ZOOM_LIMITS: ZoomLimits = { max: 24 * 60 * 60 * 2, min: 15 * 60, zoomOut: 2 };
 
 @Component
 export default class MyChart extends Vue {
@@ -66,6 +68,9 @@ export default class MyChart extends Vue {
 
   @Prop({ required: false, default: 0.5 })
   strokeOpacity!: number;
+
+  @Prop({ required: false, default: () => DEFAULT_ZOOM_LIMITS })
+  zoomLimits!: ZoomLimits;
 
   @Watch('values')
   onTimeSeriesChange(): void {
@@ -430,7 +435,7 @@ export default class MyChart extends Vue {
     const startDate = this.xScale.invert(extent[0]);
     const endDate = this.xScale.invert(extent[1]);
     const timestampRange = endDate.getTime() - startDate.getTime();;
-    if(timestampRange / 1000 < 15 * 60) {
+    if(timestampRange / 1000 < this.zoomLimits.min) {
       this.svg
         .call(this.brush.move, null);
       return;
@@ -445,16 +450,15 @@ export default class MyChart extends Vue {
     const startDate = this.xScale.invert(0);
     const endDate = this.xScale.invert(this.height);
     const timestampRange = endDate.getTime() - startDate.getTime();
-    const twoDaysTimestamp = 24 * 60 * 60 * 2;
-    if(timestampRange / 1000 > twoDaysTimestamp) {
+    if(timestampRange / 1000 > this.zoomLimits.max) {
       return;
     }
     const midDate = this.xScale.invert(this.height / 2);
-    const dayAfter = this.addDays(midDate, 1);
-    const dayBefore = this.addDays(midDate, -1);
+    const dateAfter = this.addDays(midDate, this.zoomLimits.zoomOut / 2);
+    const dateBefore = this.addDays(midDate, -1 * this.zoomLimits.zoomOut / 2);
     this.$emit('change-zoom', {
-      start: dayBefore,
-      end: dayAfter
+      start: dateBefore,
+      end: dateAfter
     });
   }
 

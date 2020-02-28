@@ -8,3 +8,9 @@ export enum AnnotationHelperPosition {
   RIGHT = "right-side",
   NONE = "none"
 };
+
+export type ZoomLimits = {
+  max: number,
+  min: number,
+  zoomOut: number
+};
