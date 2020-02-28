@@ -418,8 +418,8 @@ export default class MyChart extends Vue {
         // @ts-ignore
         const coordinates = d3.mouse(this);
         onMouseMove(coordinates);
-      });
-
+      })
+      .on('dblclick', this.zoomOut.bind(this));
   }
 
   brushed(): void {
@@ -439,6 +439,29 @@ export default class MyChart extends Vue {
       start: startDate,
       end: endDate
     });
+  }
+
+  zoomOut(): void {
+    const startDate = this.xScale.invert(0);
+    const endDate = this.xScale.invert(this.height);
+    const timestampRange = endDate.getTime() - startDate.getTime();
+    const twoDaysTimestamp = 24 * 60 * 60 * 2;
+    if(timestampRange / 1000 > twoDaysTimestamp) {
+      return;
+    }
+    const midDate = this.xScale.invert(this.height / 2);
+    const dayAfter = this.addDays(midDate, 1);
+    const dayBefore = this.addDays(midDate, -1);
+    this.$emit('change-zoom', {
+      start: dayBefore,
+      end: dayAfter
+    });
+  }
+
+  addDays(date: Date, days: number): Date {
+    let result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
   }
 
   onAnnotationMouseOver(): void {
