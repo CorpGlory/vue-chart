@@ -201,8 +201,9 @@ export default class MyChart extends Vue {
 
     this.svg = this.d3Node
       .select('svg')
+        .style('margin-top', this.margin.top)
       .append('g')
-        .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+        .attr('transform', `translate(${this.margin.left},0)`);
       // .call(
       //   d3.zoom().on(
       //     'zoom',
