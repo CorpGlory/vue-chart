@@ -16,11 +16,13 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import * as d3 from 'd3';
 import * as _ from 'lodash';
 
+const SECONDS_IN_DAY = 24 * 60 * 60;
+
 const DEFAULT_MARGIN = { top: 20, right: 40, bottom: 20, left: 70 };
 
 const ANNOTATION_HELPER_PARAMS = { lineX1: 0, lineX2: 3, circleX: 8, textX: 11 };
 
-const DEFAULT_ZOOM_LIMITS: ZoomLimits = { max: 24 * 60 * 60 * 2, min: 15 * 60, zoomOut: 2 };
+const DEFAULT_ZOOM_LIMITS: ZoomLimits = { max: SECONDS_IN_DAY * 2, min: 15 * 60 };
 
 @Component
 export default class MyChart extends Vue {
@@ -454,8 +456,9 @@ export default class MyChart extends Vue {
       return;
     }
     const midDate = this.xScale.invert(this.height / 2);
-    const dateAfter = this.addDays(midDate, this.zoomLimits.zoomOut / 2);
-    const dateBefore = this.addDays(midDate, -1 * this.zoomLimits.zoomOut / 2);
+    const dayCount = this.zoomLimits.max / (2 * SECONDS_IN_DAY);
+    const dateAfter = this.addDays(midDate, dayCount);
+    const dateBefore = this.addDays(midDate, -1 * dayCount);
     this.$emit('change-zoom', {
       start: dateBefore,
       end: dateAfter

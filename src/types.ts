@@ -9,8 +9,9 @@ export enum AnnotationHelperPosition {
   NONE = "none"
 };
 
+export type Timestamp = number;
+
 export type ZoomLimits = {
-  max: number,
-  min: number,
-  zoomOut: number
+  max: Timestamp,
+  min: Timestamp,
 };
