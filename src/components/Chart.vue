@@ -203,17 +203,7 @@ export default class MyChart extends Vue {
       .select('svg')
         .style('margin-top', this.margin.top)
       .append('g')
-        .attr('transform', `translate(${this.margin.left},0)`);
-      // .call(
-      //   d3.zoom().on(
-      //     'zoom',
-      //     () => {
-      //       if(d3.event.sourceEvent.shiftKey === true) {
-      //         this._onPanning();
-      //       }
-      //     }
-      //   )
-      // );
+        .attr('transform', `translate(${this.margin.left},0)`)
   }
 
   _onPanning(): void {
@@ -409,17 +399,25 @@ export default class MyChart extends Vue {
     this.metricNames.forEach(this._renderMetric);
     this._renderAnnotations();
     this._renderCrosshair();
+
     this.brush = d3.brushY()
       .extent([
         [0,0],
         [this.width,this.height]
       ])
       .handleSize(20)
-      .on('end', this.brushed);
+      .filter(() => !d3.event.shiftKey)
+      .on('end', this.brushed)
 
     const onMouseMove = this.onMouseMove.bind(this)
     this.svg
       .call(this.brush)
+      .call(
+        d3.zoom()
+          .on('end', () => {
+            this._onPanning();
+          })
+      )
       .on('mouseover', this.onMouseOver.bind(this))
       .on('mouseout', this.onMouseOut.bind(this))
       .on('mousemove', function() {
