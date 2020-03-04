@@ -68,6 +68,9 @@ export default class MyChart extends Vue {
   @Prop({ required: false, default: true })
   renderLabelX!: boolean;
 
+  @Prop({ required: false })
+  yAxisTransform!: number;
+
   @Prop({ required: false, default: 0.5 })
   strokeOpacity!: number;
 
@@ -82,6 +85,11 @@ export default class MyChart extends Vue {
   @Watch('zoom')
   onZoomChange(): void {
     this.renderChart();
+  }
+
+  @Watch('yAxisTransform')
+  onYAxisTransformChange(newValue: number): void {
+    this.pathTransform(newValue);
   }
 
   get metricNames(): string[] {
@@ -206,23 +214,40 @@ export default class MyChart extends Vue {
         .attr('transform', `translate(${this.margin.left},0)`)
   }
 
-  _onPanning(): void {
+  _onPanningEnd(): void {
     this.$emit('pan', [
       this.xScale.invert(this.xScale(this.zoomLowerValue) - d3.event.transform.y),
       this.xScale.invert(this.xScale(this.zoomUpperValue) - d3.event.transform.y)
     ]);
   }
 
+  _onPanningZoom(): void {
+    this.$emit('shiftPan', d3.event.transform.y);
+  }
+
+  pathTransform(transform: number): void {
+    let metrics = this.svg.selectAll('.metric-path');
+    let yAxis = this.svg.selectAll('.y0-axis');
+    metrics
+      .attr('transform', `translate(0,${transform})`);
+    yAxis
+      .attr('transform', `translate(0,${transform})`);
+  }
+
   _renderAxes(): void {
     this.svg.append('g')
-      .attr('class', 'x axis')
+      .attr('class', 'x-axis')
       .attr('transform', `translate(0,${this.height})`)
       // TODO: number of ticks shouldn't be hardcoded
       .call(d3.axisBottom(this.yScale).ticks(2).tickSize(2));
 
     this.svg.append('g')
-      .attr('class', `y0 axis`)
+      .attr('class', `y0-axis`)
       .call(d3.axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
+
+    this.svg.append('g')
+      .attr('class', `y-axis`)
+      .call(d3.axisLeft(this.xScale).tickFormat((): any => {''}).tickSize(0));
   }
 
   _renderMetric(name: string, idx: number): void {
@@ -232,6 +257,7 @@ export default class MyChart extends Vue {
 
     this.svg.append('path')
       .datum(_.slice(this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1))
+      .attr('class', 'metric-path')
       .attr('fill', 'none')
       .attr('stroke', this.colors[idx])
       .attr('stroke-width', 1)
@@ -414,8 +440,11 @@ export default class MyChart extends Vue {
       .call(
         d3.zoom()
           .filter(() => d3.event.shiftKey)
+          .on('zoom', () => {
+            this._onPanningZoom();
+          })
           .on('end', () => {
-            this._onPanning();
+            this._onPanningEnd();
           })
       )
       .on('mouseover', this.onMouseOver.bind(this))
