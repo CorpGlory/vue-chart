@@ -414,6 +414,7 @@ export default class MyChart extends Vue {
       .call(this.brush)
       .call(
         d3.zoom()
+          .filter(() => d3.event.shiftKey)
           .on('end', () => {
             this._onPanning();
           })
