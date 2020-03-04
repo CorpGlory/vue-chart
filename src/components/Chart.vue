@@ -31,6 +31,7 @@ export default class MyChart extends Vue {
   svg: any;
   crosshair: any;
   brush: any;
+  xScale: any;
 
   @Prop({ required: true })
   id!: number;
@@ -173,14 +174,13 @@ export default class MyChart extends Vue {
     return new Date(this.values[this.values.length - 1][0]);
   }
 
-  get xScale(): any {
-    // x is vertical axis
-    return d3.scaleTime()
-      .domain([
-        this.zoomLowerValue,
-        this.zoomUpperValue
-      ])
-      .range([0, this.height]);
+  @Watch('zoomLowerValue')
+  @Watch('zoomUpperValue')
+  onZoomValueChange() {
+    this.xScale.domain([
+      this.zoomLowerValue,
+      this.zoomUpperValue
+    ]);
   }
 
   get yScale(): any {
@@ -259,15 +259,30 @@ export default class MyChart extends Vue {
       .attr('transform', `translate(0,${transform})`);
     annotations
       .attr('transform', `translate(0,${transform})`);
+
+    if(this.renderLabelX) {
+      let lowerValue = this.xScale(this.zoomLowerValue)
+      let upperValue = this.xScale(this.zoomUpperValue);
+      lowerValue -= transform;
+      upperValue -= transform;
+
+      this.xScale.domain([this.xScale.invert(lowerValue), this.xScale.invert(upperValue)]);
+
+      this.svg.select('g.y-axis').remove();
+      this.svg.select('g.y0-axis').remove();
+      this._renderYAxis();
+    }
   }
 
-  _renderAxes(): void {
+  _renderXAxis(): void {
     this.svg.append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0,${this.height})`)
       // TODO: number of ticks shouldn't be hardcoded
       .call(d3.axisBottom(this.yScale).ticks(2).tickSize(2));
+  }
 
+  _renderYAxis(): void {
     this.svg
       .append('g')
         .attr('clip-path', `url(#axis-clip-${this.id})`)
@@ -376,13 +391,13 @@ export default class MyChart extends Vue {
     this.crosshair.append('line')
       .attr('id', 'crosshair-line-y')
       .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
+      .attr('stroke', 'red')
       .attr('stroke-width', '0.5px');
     this.crosshair.append('circle')
       .attr('id', 'crosshair-circle')
       .attr('r', 5)
       .style('fill', 'white')
-      .style('stroke', 'steelblue')
+      .style('stroke', 'red')
       .style('stroke-width', '2px');
 
     const onMouseMove = this.onMouseMove.bind(this);
@@ -453,8 +468,16 @@ export default class MyChart extends Vue {
   renderChart(): void {
     console.log('re-render');
 
+    this.xScale = d3.scaleTime()
+      .domain([
+        this.zoomLowerValue,
+        this.zoomUpperValue
+      ])
+      .range([0, this.height]);
+
     this._createSvg();
-    this._renderAxes();
+    this._renderXAxis();
+    this._renderYAxis();
 
     if(this.metricNames.length === 0) {
       throw new Error('There should be at least 1 metric');
