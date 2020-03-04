@@ -17803,17 +17803,6 @@ module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
 
 /***/ }),
 
-/***/ "4d0b":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_d71d21ba_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("f597");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_d71d21ba_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_d71d21ba_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_d71d21ba_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
 /***/ "4d64":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18179,6 +18168,13 @@ module.exports = function (NAME) {
   });
 };
 
+
+/***/ }),
+
+/***/ "761a":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -19626,6 +19622,17 @@ module.exports = function (it, TAG, STATIC) {
 
 /***/ }),
 
+/***/ "d7bb":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3cd33409_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("761a");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3cd33409_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3cd33409_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3cd33409_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "d81d":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19930,13 +19937,6 @@ module.exports = Array.isArray || function isArray(arg) {
 
 /***/ }),
 
-/***/ "f597":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "f5df":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20051,12 +20051,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"751cce1f-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=d71d21ba&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"751cce1f-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=3cd33409&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"chart",attrs:{"id":_vm.id}},[(_vm.title !== undefined)?_c('h6',[_vm._v(_vm._s(_vm.title))]):_vm._e(),_c('div',{staticClass:"chart-container"},[_c('svg',{attrs:{"width":"100%","height":"100%"}})])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=d71d21ba&scoped=true&
+// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=3cd33409&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -32791,22 +32791,43 @@ function (_Vue) {
       this.renderChart();
     }
   }, {
+    key: "onYAxisTransformChange",
+    value: function onYAxisTransformChange(newValue) {
+      this.pathTransform(newValue);
+    }
+  }, {
     key: "_createSvg",
     value: function _createSvg() {
       this.d3Node.selectAll('svg *').remove();
       this.svg = this.d3Node.select('svg').style('margin-top', this.margin.top).append('g').attr('transform', "translate(".concat(this.margin.left, ",0)"));
     }
   }, {
-    key: "_onPanning",
-    value: function _onPanning() {
+    key: "_onPanningEnd",
+    value: function _onPanningEnd() {
       this.$emit('pan', [this.xScale.invert(this.xScale(this.zoomLowerValue) - on_event.transform.y), this.xScale.invert(this.xScale(this.zoomUpperValue) - on_event.transform.y)]);
+    }
+  }, {
+    key: "_onPanningZoom",
+    value: function _onPanningZoom() {
+      this.$emit('shiftPan', on_event.transform.y);
+    }
+  }, {
+    key: "pathTransform",
+    value: function pathTransform(transform) {
+      var metrics = this.svg.selectAll('.metric-path');
+      var yAxis = this.svg.selectAll('.y0-axis');
+      metrics.attr('transform', "translate(0,".concat(transform, ")"));
+      yAxis.attr('transform', "translate(0,".concat(transform, ")"));
     }
   }, {
     key: "_renderAxes",
     value: function _renderAxes() {
-      this.svg.append('g').attr('class', 'x axis').attr('transform', "translate(0,".concat(this.height, ")")) // TODO: number of ticks shouldn't be hardcoded
+      this.svg.append('g').attr('class', 'x-axis').attr('transform', "translate(0,".concat(this.height, ")")) // TODO: number of ticks shouldn't be hardcoded
       .call(axisBottom(this.yScale).ticks(2).tickSize(2));
-      this.svg.append('g').attr('class', "y0 axis").call(axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
+      this.svg.append('g').attr('class', "y0-axis").call(axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
+      this.svg.append('g').attr('class', "y-axis").call(axisLeft(this.xScale).tickFormat(function () {
+        '';
+      }).tickSize(0));
     }
   }, {
     key: "_renderMetric",
@@ -32818,7 +32839,7 @@ function (_Vue) {
       }).y(function (d) {
         return _this.xScale(d[0]);
       });
-      this.svg.append('path').datum(lodash["slice"](this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1)).attr('fill', 'none').attr('stroke', this.colors[idx]).attr('stroke-width', 1).attr('stroke-opacity', this.strokeOpacity).attr('d', lineGenerator);
+      this.svg.append('path').datum(lodash["slice"](this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1)).attr('class', 'metric-path').attr('fill', 'none').attr('stroke', this.colors[idx]).attr('stroke-width', 1).attr('stroke-opacity', this.strokeOpacity).attr('d', lineGenerator);
     }
   }, {
     key: "_renderAnnotations",
@@ -32946,8 +32967,10 @@ function (_Vue) {
       var onMouseMove = this.onMouseMove.bind(this);
       this.svg.call(this.brush).call(d3_zoom_src_zoom().filter(function () {
         return on_event.shiftKey;
+      }).on('zoom', function () {
+        _this4._onPanningZoom();
       }).on('end', function () {
-        _this4._onPanning();
+        _this4._onPanningEnd();
       })).on('mouseover', this.onMouseOver.bind(this)).on('mouseout', this.onMouseOut.bind(this)).on('mousemove', function () {
         // @ts-ignore
         var coordinates = mouse(this);
@@ -33242,6 +33265,10 @@ __decorate([Prop({
 })], Chartvue_type_script_lang_ts_MyChart.prototype, "renderLabelX", void 0);
 
 __decorate([Prop({
+  required: false
+})], Chartvue_type_script_lang_ts_MyChart.prototype, "yAxisTransform", void 0);
+
+__decorate([Prop({
   required: false,
   default: 0.5
 })], Chartvue_type_script_lang_ts_MyChart.prototype, "strokeOpacity", void 0);
@@ -33257,12 +33284,14 @@ __decorate([Watch('values')], Chartvue_type_script_lang_ts_MyChart.prototype, "o
 
 __decorate([Watch('zoom')], Chartvue_type_script_lang_ts_MyChart.prototype, "onZoomChange", null);
 
+__decorate([Watch('yAxisTransform')], Chartvue_type_script_lang_ts_MyChart.prototype, "onYAxisTransformChange", null);
+
 Chartvue_type_script_lang_ts_MyChart = __decorate([vue_class_component_esm], Chartvue_type_script_lang_ts_MyChart);
 /* harmony default export */ var Chartvue_type_script_lang_ts_ = (Chartvue_type_script_lang_ts_MyChart);
 // CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=script&lang=ts&
  /* harmony default export */ var components_Chartvue_type_script_lang_ts_ = (Chartvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/Chart.vue?vue&type=style&index=0&id=d71d21ba&scoped=true&lang=css&
-var Chartvue_type_style_index_0_id_d71d21ba_scoped_true_lang_css_ = __webpack_require__("4d0b");
+// EXTERNAL MODULE: ./src/components/Chart.vue?vue&type=style&index=0&id=3cd33409&scoped=true&lang=css&
+var Chartvue_type_style_index_0_id_3cd33409_scoped_true_lang_css_ = __webpack_require__("d7bb");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -33374,7 +33403,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "d71d21ba",
+  "3cd33409",
   null
   
 )
