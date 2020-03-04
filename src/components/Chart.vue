@@ -209,9 +209,26 @@ export default class MyChart extends Vue {
 
     this.svg = this.d3Node
       .select('svg')
-        .style('margin-top', this.margin.top)
       .append('g')
-        .attr('transform', `translate(${this.margin.left},0)`)
+        .attr('transform', `translate(${this.margin.left},0)`);
+
+    this.svg
+      .append('clipPath')
+        .attr('id', `clip-${this.id}`)
+      .append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', this.width)
+        .attr('height', this.height);
+
+    this.svg
+      .append('clipPath')
+        .attr('id', `axis-clip-${this.id}`)
+      .append('rect')
+        .attr('x', -this.margin.left)
+        .attr('y', 0)
+        .attr('width', this.margin.left)
+        .attr('height', this.height);
   }
 
   _onPanningEnd(): void {
@@ -241,9 +258,12 @@ export default class MyChart extends Vue {
       // TODO: number of ticks shouldn't be hardcoded
       .call(d3.axisBottom(this.yScale).ticks(2).tickSize(2));
 
-    this.svg.append('g')
-      .attr('class', `y0-axis`)
-      .call(d3.axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
+    this.svg
+      .append('g')
+        .attr('clip-path', `url(#axis-clip-${this.id})`)
+      .append('g')
+        .attr('class', `y0-axis`)
+        .call(d3.axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
 
     this.svg.append('g')
       .attr('class', `y-axis`)
@@ -255,14 +275,18 @@ export default class MyChart extends Vue {
       .x((d: any) => this.yScale(d[idx + 1]))
       .y((d: any) => this.xScale(d[0]));
 
-    this.svg.append('path')
-      .datum(_.slice(this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1))
-      .attr('class', 'metric-path')
-      .attr('fill', 'none')
-      .attr('stroke', this.colors[idx])
-      .attr('stroke-width', 1)
-      .attr('stroke-opacity', this.strokeOpacity)
-      .attr('d', lineGenerator);
+    this.svg
+      .append('g')
+        .attr('clip-path', `url(#clip-${this.id})`)
+        .style('pointer-events', 'none')
+      .append('path')
+        .datum(_.slice(this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1))
+        .attr('class', 'metric-path')
+        .attr('fill', 'none')
+        .attr('stroke', this.colors[idx])
+        .attr('stroke-width', 1)
+        .attr('stroke-opacity', this.strokeOpacity)
+        .attr('d', lineGenerator);
   }
 
   _renderAnnotations(): void {
