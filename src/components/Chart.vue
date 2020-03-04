@@ -397,7 +397,6 @@ export default class MyChart extends Vue {
     }
 
     this.metricNames.forEach(this._renderMetric);
-    this._renderAnnotations();
     this._renderCrosshair();
 
     this.brush = d3.brushY()
@@ -414,6 +413,7 @@ export default class MyChart extends Vue {
       .call(this.brush)
       .call(
         d3.zoom()
+          .filter(() => d3.event.shiftKey)
           .on('end', () => {
             this._onPanning();
           })
@@ -426,6 +426,8 @@ export default class MyChart extends Vue {
         onMouseMove(coordinates);
       })
       .on('dblclick', this.zoomOut.bind(this));
+
+    this._renderAnnotations();
   }
 
   brushed(): void {
@@ -471,6 +473,7 @@ export default class MyChart extends Vue {
   }
 
   onAnnotationMouseOver(): void {
+    d3.event.stopPropagation();
     this.$emit('tooltip', {
       displayed: true
     });
@@ -478,6 +481,7 @@ export default class MyChart extends Vue {
 
   // TODO: not any
   onAnnotationMouseMove(d: any): void {
+    d3.event.stopPropagation();
     this.$emit('tooltip', {
       displayed: true,
       x: d3.event.clientX - 125,
@@ -486,6 +490,7 @@ export default class MyChart extends Vue {
     });
   }
   onAnnotationMouseLeave(): void {
+    d3.event.stopPropagation();
     this.$emit('tooltip', {
       displayed: false
     });
