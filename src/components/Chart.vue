@@ -200,7 +200,14 @@ export default class MyChart extends Vue {
 
   get annotationsInTimerange(): Annotation[] {
     return this.annotations.filter(
-      annotation => annotation.date >= this.zoom.x[0] && annotation.date <= this.zoom.x[1]
+      annotation => {
+        const topBound = annotation.date >= this.zoom.x[0];
+        let bottomBound = true;
+        if(this.zoom.x[1] !== undefined) {
+          bottomBound =  annotation.date <= this.zoom.x[1];
+        }
+        return topBound && bottomBound;
+      }
     );
   }
 
