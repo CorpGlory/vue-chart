@@ -17648,6 +17648,13 @@ module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperti
 
 /***/ }),
 
+/***/ "3af7":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "3bbe":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18180,13 +18187,6 @@ module.exports = function (NAME) {
 
 /***/ }),
 
-/***/ "761a":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "7839":
 /***/ (function(module, exports) {
 
@@ -18466,6 +18466,17 @@ module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
 
+
+/***/ }),
+
+/***/ "8662":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_460b8082_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("3af7");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_460b8082_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_460b8082_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_460b8082_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -19631,17 +19642,6 @@ module.exports = function (it, TAG, STATIC) {
 
 /***/ }),
 
-/***/ "d7bb":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3cd33409_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("761a");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3cd33409_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3cd33409_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_3cd33409_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
 /***/ "d81d":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20060,12 +20060,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"751cce1f-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=3cd33409&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"751cce1f-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=460b8082&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"chart",attrs:{"id":_vm.id}},[(_vm.title !== undefined)?_c('h6',[_vm._v(_vm._s(_vm.title))]):_vm._e(),_c('div',{staticClass:"chart-container"},[_c('svg',{attrs:{"width":"100%","height":"100%"}})])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=3cd33409&scoped=true&
+// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=460b8082&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -32808,7 +32808,9 @@ function (_Vue) {
     key: "_createSvg",
     value: function _createSvg() {
       this.d3Node.selectAll('svg *').remove();
-      this.svg = this.d3Node.select('svg').style('margin-top', this.margin.top).append('g').attr('transform', "translate(".concat(this.margin.left, ",0)"));
+      this.svg = this.d3Node.select('svg').append('g').attr('transform', "translate(".concat(this.margin.left, ",0)"));
+      this.svg.append('clipPath').attr('id', "clip-".concat(this.id)).append('rect').attr('x', 0).attr('y', 0).attr('width', this.width).attr('height', this.height);
+      this.svg.append('clipPath').attr('id', "axis-clip-".concat(this.id)).append('rect').attr('x', -this.margin.left).attr('y', 0).attr('width', this.margin.left).attr('height', this.height);
     }
   }, {
     key: "_onPanningEnd",
@@ -32825,15 +32827,17 @@ function (_Vue) {
     value: function pathTransform(transform) {
       var metrics = this.svg.selectAll('.metric-path');
       var yAxis = this.svg.selectAll('.y0-axis');
+      var annotations = this.svg.selectAll('.annotation');
       metrics.attr('transform', "translate(0,".concat(transform, ")"));
       yAxis.attr('transform', "translate(0,".concat(transform, ")"));
+      annotations.attr('transform', "translate(0,".concat(transform, ")"));
     }
   }, {
     key: "_renderAxes",
     value: function _renderAxes() {
       this.svg.append('g').attr('class', 'x-axis').attr('transform', "translate(0,".concat(this.height, ")")) // TODO: number of ticks shouldn't be hardcoded
       .call(axisBottom(this.yScale).ticks(2).tickSize(2));
-      this.svg.append('g').attr('class', "y0-axis").call(axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
+      this.svg.append('g').attr('clip-path', "url(#axis-clip-".concat(this.id, ")")).append('g').attr('class', "y0-axis").call(axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
       this.svg.append('g').attr('class', "y-axis").call(axisLeft(this.xScale).tickFormat(function () {
         '';
       }).tickSize(0));
@@ -32848,14 +32852,14 @@ function (_Vue) {
       }).y(function (d) {
         return _this.xScale(d[0]);
       });
-      this.svg.append('path').datum(lodash["slice"](this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1)).attr('class', 'metric-path').attr('fill', 'none').attr('stroke', this.colors[idx]).attr('stroke-width', 1).attr('stroke-opacity', this.strokeOpacity).attr('d', lineGenerator);
+      this.svg.append('g').attr('clip-path', "url(#clip-".concat(this.id, ")")).style('pointer-events', 'none').append('path').datum(lodash["slice"](this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1)).attr('class', 'metric-path').attr('fill', 'none').attr('stroke', this.colors[idx]).attr('stroke-width', 1).attr('stroke-opacity', this.strokeOpacity).attr('d', lineGenerator);
     }
   }, {
     key: "_renderAnnotations",
     value: function _renderAnnotations() {
       var _this2 = this;
 
-      this.svg.selectAll().data(this.annotationsInTimerange).enter().append('line').attr('x1', this.yScale(0)).attr('x2', this.yScale(this.maxMetricValue)).attr('y1', function (d) {
+      this.svg.selectAll().data(this.annotationsInTimerange).enter().append('line').attr('class', 'annotation').attr('x1', this.yScale(0)).attr('x2', this.yScale(this.maxMetricValue)).attr('y1', function (d) {
         return _this2.xScale(d.date);
       }).attr('y2', function (d) {
         return _this2.xScale(d.date);
@@ -32879,17 +32883,17 @@ function (_Vue) {
         shift = this.yScale(this.maxMetricValue);
       }
 
-      this.svg.selectAll().data(this.annotationsInTimerange).enter().append('line').attr('x1', shift + k * ANNOTATION_HELPER_PARAMS.lineX1).attr('x2', shift + k * ANNOTATION_HELPER_PARAMS.lineX2).attr('y1', function (d) {
+      this.svg.selectAll().data(this.annotationsInTimerange).enter().append('line').attr('class', 'annotation').attr('x1', shift + k * ANNOTATION_HELPER_PARAMS.lineX1).attr('x2', shift + k * ANNOTATION_HELPER_PARAMS.lineX2).attr('y1', function (d) {
         return _this3.xScale(d.date);
       }).attr('y2', function (d) {
         return _this3.xScale(d.date);
       }).attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:5,5;').on('mouseover', this.onAnnotationMouseOver).on('mousemove', this.onAnnotationMouseMove).on('mouseleave', this.onAnnotationMouseLeave);
-      this.svg.selectAll().data(this.annotationsInTimerange).enter().append('circle').attr('cx', shift + k * ANNOTATION_HELPER_PARAMS.circleX).attr('cy', function (d) {
+      this.svg.selectAll().data(this.annotationsInTimerange).enter().append('circle').attr('class', 'annotation').attr('cx', shift + k * ANNOTATION_HELPER_PARAMS.circleX).attr('cy', function (d) {
         return _this3.xScale(d.date);
       }).attr('r', 5).attr('style', 'stroke:black;stroke-width:1;fill:white;').on('mouseover', this.onAnnotationMouseOver).on('mousemove', this.onAnnotationMouseMove).on('mouseleave', this.onAnnotationMouseLeave).on('click', function (d) {
         return _this3.$emit('click', d);
       });
-      this.svg.selectAll().data(this.annotationsInTimerange).enter().append('text').attr('x', shift + k * ANNOTATION_HELPER_PARAMS.textX).attr('y', function (d) {
+      this.svg.selectAll().data(this.annotationsInTimerange).enter().append('text').attr('class', 'annotation').attr('x', shift + k * ANNOTATION_HELPER_PARAMS.textX).attr('y', function (d) {
         return _this3.xScale(d.date) + 3;
       }).text(this.annotationLabel).attr('font-size', '10px').attr('font-weght', 'bold').attr('cursor', 'default').on('mouseover', this.onAnnotationMouseOver).on('mousemove', this.onAnnotationMouseMove).on('mouseleave', this.onAnnotationMouseLeave);
     }
@@ -33299,8 +33303,8 @@ Chartvue_type_script_lang_ts_MyChart = __decorate([vue_class_component_esm], Cha
 /* harmony default export */ var Chartvue_type_script_lang_ts_ = (Chartvue_type_script_lang_ts_MyChart);
 // CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=script&lang=ts&
  /* harmony default export */ var components_Chartvue_type_script_lang_ts_ = (Chartvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/Chart.vue?vue&type=style&index=0&id=3cd33409&scoped=true&lang=css&
-var Chartvue_type_style_index_0_id_3cd33409_scoped_true_lang_css_ = __webpack_require__("d7bb");
+// EXTERNAL MODULE: ./src/components/Chart.vue?vue&type=style&index=0&id=460b8082&scoped=true&lang=css&
+var Chartvue_type_style_index_0_id_460b8082_scoped_true_lang_css_ = __webpack_require__("8662");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -33412,7 +33416,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "3cd33409",
+  "460b8082",
   null
   
 )

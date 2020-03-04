@@ -245,9 +245,12 @@ export default class MyChart extends Vue {
   pathTransform(transform: number): void {
     let metrics = this.svg.selectAll('.metric-path');
     let yAxis = this.svg.selectAll('.y0-axis');
+    let annotations = this.svg.selectAll('.annotation');
     metrics
       .attr('transform', `translate(0,${transform})`);
     yAxis
+      .attr('transform', `translate(0,${transform})`);
+    annotations
       .attr('transform', `translate(0,${transform})`);
   }
 
@@ -294,6 +297,7 @@ export default class MyChart extends Vue {
       .data(this.annotationsInTimerange)
       .enter()
       .append('line')
+        .attr('class', 'annotation')
         .attr('x1', this.yScale(0))
         .attr('x2', this.yScale(this.maxMetricValue))
         .attr('y1', (d: any) => this.xScale(d.date))
@@ -318,6 +322,7 @@ export default class MyChart extends Vue {
       .data(this.annotationsInTimerange)
       .enter()
       .append('line')
+        .attr('class', 'annotation')
         .attr('x1', shift + k * ANNOTATION_HELPER_PARAMS.lineX1)
         .attr('x2', shift + k * ANNOTATION_HELPER_PARAMS.lineX2)
         .attr('y1', (d: any) => this.xScale(d.date))
@@ -331,6 +336,7 @@ export default class MyChart extends Vue {
       .data(this.annotationsInTimerange)
       .enter()
       .append('circle')
+        .attr('class', 'annotation')
         .attr('cx', shift + k * ANNOTATION_HELPER_PARAMS.circleX)
         .attr('cy', (d: any) => this.xScale(d.date))
         .attr('r', 5 )
@@ -344,6 +350,7 @@ export default class MyChart extends Vue {
       .data(this.annotationsInTimerange)
       .enter()
       .append('text')
+        .attr('class', 'annotation')
         .attr('x', shift + k * ANNOTATION_HELPER_PARAMS.textX)
         .attr('y', (d: any) => this.xScale(d.date) + 3)
         .text(this.annotationLabel)
