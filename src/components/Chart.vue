@@ -22,7 +22,7 @@ const DEFAULT_MARGIN = { top: 20, right: 40, bottom: 20, left: 70 };
 
 const ANNOTATION_HELPER_PARAMS = { lineX1: 0, lineX2: 3, circleX: 8, textX: 11 };
 
-const DEFAULT_ZOOM_LIMITS: ZoomLimits = { max: SECONDS_IN_DAY * 2, min: 15 * 60 };
+const DEFAULT_ZOOM_LIMITS: ZoomLimits = { max: SECONDS_IN_DAY * 2, min: 5 * 60 };
 
 @Component
 export default class MyChart extends Vue {
@@ -393,12 +393,15 @@ export default class MyChart extends Vue {
       .attr('fill', 'none')
       .attr('stroke', 'red')
       .attr('stroke-width', '0.5px');
-    this.crosshair.append('circle')
-      .attr('id', 'crosshair-circle')
-      .attr('r', 5)
-      .style('fill', 'white')
-      .style('stroke', 'red')
-      .style('stroke-width', '2px');
+
+    for(let i = 0; i < this.values[0].length - 1; i++) {
+      this.crosshair.append('circle')
+        .attr('id', `crosshair-circle-${i}`)
+        .attr('r', 2)
+        .style('fill', 'white')
+        .style('stroke', 'red')
+        .style('stroke-width', '1px');
+    }
 
     const onMouseMove = this.onMouseMove.bind(this);
     this.svg.append('rect')
@@ -426,33 +429,41 @@ export default class MyChart extends Vue {
     const d0 = this.values[i - 1];
     const d1 = this.values[i];
 
-    const d = mouseDate - d0[0] > d1[0] - mouseDate ? d1 : d0;
-
-    const x = this.yScale(d[1]);
-    const y = this.xScale(d[0]);
-
-    let value = d[0].toLocaleString();
-    for(let i = 1; i < d.length; i++) {
-      value += `<br/>${this.metricNames[i - 1]}: ${d[i].toFixed(2)}`
-    }
-
     let yOffset = 0;
-    if(d.length >= 4) {
-      yOffset = (d.length - 4) * 30;
+    if(this.values[0].length >= 4) {
+      yOffset = (this.values[0].length - 4) * 30;
     }
 
-    this.$emit('mouse-move', {
-      point: [x, y],
-      mouse: [d3.event.clientX, d3.event.clientY - yOffset],
-      value
-    });
+    if(d1 !== undefined) {
+      const d = mouseDate - d0[0] > d1[0] - mouseDate ? d1 : d0;
 
-    this.crosshair.select('#crosshair-circle')
-      .attr('cx', x)
-      .attr('cy', y);
+      let value = d[0].toLocaleString();
+      for(let i = 1; i < d.length; i++) {
+        value += `<br/>${this.metricNames[i - 1]}: ${d[i].toFixed(2)}`
+      }
+
+      for(let i = 0; i < this.values[0].length - 1; i++) {
+        const x = this.yScale(d[i + 1]);
+        const y = this.xScale(d[0]);
+
+        this.crosshair.select(`#crosshair-circle-${i}`)
+          .attr('cx', x)
+          .attr('cy', y);
+      }
+
+      this.$emit('mouse-move', {
+        mouse: [d3.event.clientX, d3.event.clientY - yOffset],
+        value
+      });
+    } else {
+      this.$emit('mouse-move', {
+        mouse: [d3.event.clientX, d3.event.clientY - yOffset]
+      });
+    }
+
     this.crosshair.select('#crosshair-line-y')
-      .attr('x1', this.yScale(0)).attr('y1', y)
-      .attr('x2', this.yScale(this.maxMetricValue)).attr('y2', y);
+      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY)
+      .attr('x2', this.yScale(this.maxMetricValue)).attr('y2', d3.event.layerY);
   }
 
   onMouseOver(): void {
