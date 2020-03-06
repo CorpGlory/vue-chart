@@ -246,18 +246,26 @@ export default class MyChart extends Vue {
   }
 
   _onPanningZoom(): void {
+    this.$emit('tooltip', { displayed: false });
     this.$emit('shiftPan', d3.event.transform.y);
   }
 
   pathTransform(transform: number): void {
+    // TODO: one class for all transformable elements
     let metrics = this.svg.selectAll('.metric-path');
     let yAxis = this.svg.selectAll('.y0-axis');
     let annotations = this.svg.selectAll('.annotation');
+    let crosshairLines = this.svg.selectAll('.crosshair-line');
+    let crosshairCircles = this.svg.selectAll('.crosshair-circle');
     metrics
       .attr('transform', `translate(0,${transform})`);
     yAxis
       .attr('transform', `translate(0,${transform})`);
     annotations
+      .attr('transform', `translate(0,${transform})`);
+    crosshairLines
+      .attr('transform', `translate(0,${transform})`);
+    crosshairCircles
       .attr('transform', `translate(0,${transform})`);
 
     if(this.renderLabelX) {
@@ -390,6 +398,7 @@ export default class MyChart extends Vue {
       .style('display', 'none');
 
     this.crosshair.append('line')
+      .attr('class', 'crosshair-line')
       .attr('id', 'crosshair-line-y')
       .attr('fill', 'none')
       .attr('stroke', 'red')
@@ -397,6 +406,7 @@ export default class MyChart extends Vue {
 
     for(let i = 0; i < this.values[0].length - 1; i++) {
       this.crosshair.append('circle')
+        .attr('class', 'crosshair-circle')
         .attr('id', `crosshair-circle-${i}`)
         .attr('r', 2)
         .style('fill', 'white')
@@ -505,7 +515,8 @@ export default class MyChart extends Vue {
       ])
       .handleSize(20)
       .filter(() => !d3.event.shiftKey)
-      .on('end', this.brushed)
+      .on('start', this.onBrushStart)
+      .on('end', this.onBrushEnd)
 
     const onMouseMove = this.onMouseMove.bind(this)
     this.svg
@@ -532,7 +543,11 @@ export default class MyChart extends Vue {
     this._renderAnnotations();
   }
 
-  brushed(): void {
+  onBrushStart(): void {
+    this.$emit('tooltip', { displayed: false })
+  }
+
+  onBrushEnd(): void {
     const extent = d3.event.selection;
     if(extent === undefined || extent === null) {
       return;
