@@ -64,7 +64,7 @@ export default class MyChart extends Vue {
   margin!: { top: number, right: number, bottom: number, left: number };
 
   @Prop({ required: false })
-  maxValue!: number;
+  maxValues!: number[];
 
   @Prop({ required: false, default: true })
   renderLabelX!: boolean;
@@ -107,8 +107,8 @@ export default class MyChart extends Vue {
     return svgContainer.node().clientHeight - this.margin.top - this.margin.bottom;
   }
 
-  get maxMetricValue(): number {
-    let maxValue = this.maxValue;
+  get maxMetricValue(): number | undefined {
+    let maxValue = undefined;
     if(maxValue === undefined) {
       const maxMetricValue = _.max(
         this.metricNames.map(
@@ -186,7 +186,7 @@ export default class MyChart extends Vue {
   get yScale(): any {
     // y is horizontal axis
     return d3.scaleLinear()
-      .domain([0, this.maxMetricValue])
+      .domain([0, 1])
       .range([0, this.width]);
   }
 
@@ -287,7 +287,7 @@ export default class MyChart extends Vue {
       .attr('class', 'x-axis')
       .attr('transform', `translate(0,${this.height})`)
       // TODO: number of ticks shouldn't be hardcoded
-      .call(d3.axisBottom(this.yScale).ticks(2).tickSize(2));
+      .call(d3.axisBottom(this.yScale).ticks(4).tickSize(2));
   }
 
   _renderYAxis(): void {
@@ -305,7 +305,7 @@ export default class MyChart extends Vue {
 
   _renderMetric(name: string, idx: number): void {
     const lineGenerator = d3.line()
-      .x((d: any) => this.yScale(d[idx + 1]))
+      .x((d: any) => this.yScale(d[idx + 1] / this.maxValues[idx]))
       .y((d: any) => this.xScale(d[0]));
 
     this.svg
@@ -329,7 +329,7 @@ export default class MyChart extends Vue {
       .append('line')
         .attr('class', 'annotation')
         .attr('x1', this.yScale(0))
-        .attr('x2', this.yScale(this.maxMetricValue))
+        .attr('x2', this.yScale(1))
         .attr('y1', (d: any) => this.xScale(d.date))
         .attr('y2', (d: any) => this.xScale(d.date))
         .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:2,2;')
@@ -346,7 +346,7 @@ export default class MyChart extends Vue {
     let shift = 0;
     if (this.annotationHelper === AnnotationHelperPosition.RIGHT) {
       k = 1;
-      shift = this.yScale(this.maxMetricValue);
+      shift = this.yScale(1);
     }
 
     this.svg.selectAll()
@@ -404,14 +404,16 @@ export default class MyChart extends Vue {
       .attr('stroke', 'red')
       .attr('stroke-width', '0.5px');
 
-    for(let i = 0; i < this.values[0].length - 1; i++) {
-      this.crosshair.append('circle')
-        .attr('class', 'crosshair-circle')
-        .attr('id', `crosshair-circle-${i}`)
-        .attr('r', 2)
-        .style('fill', 'white')
-        .style('stroke', 'red')
-        .style('stroke-width', '1px');
+    if(this.values !== undefined && this.values[0] !== undefined) {
+      for(let i = 0; i < this.values[0].length - 1; i++) {
+        this.crosshair.append('circle')
+          .attr('class', 'crosshair-circle')
+          .attr('id', `crosshair-circle-${i}`)
+          .attr('r', 2)
+          .style('fill', 'white')
+          .style('stroke', 'red')
+          .style('stroke-width', '1px');
+      }
     }
 
     const onMouseMove = this.onMouseMove.bind(this);
@@ -433,7 +435,6 @@ export default class MyChart extends Vue {
 
   onMouseMove(coordinates: [number, number]): void {
     const bisectDate = d3.bisector((d: [number, number]) => d[0]).left;
-
     const mouseDate = this.xScale.invert(coordinates[1]);
     const i = bisectDate(this.values, mouseDate);
 
@@ -441,6 +442,15 @@ export default class MyChart extends Vue {
     const d1 = this.values[i];
 
     let yOffset = 0;
+
+    this.crosshair.select('#crosshair-line-y')
+      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY)
+      .attr('x2', this.yScale(1)).attr('y2', d3.event.layerY);
+
+    if(this.values === undefined || this.values[0] === undefined) {
+      return;
+    }
+
     if(this.values[0].length >= 4) {
       yOffset = (this.values[0].length - 4) * 30;
     }
@@ -452,9 +462,8 @@ export default class MyChart extends Vue {
       for(let i = 1; i < d.length; i++) {
         value += `<br/>${this.metricNames[i - 1]}: ${d[i].toFixed(2)}`
       }
-
       for(let i = 0; i < this.values[0].length - 1; i++) {
-        const x = this.yScale(d[i + 1]);
+        const x = this.yScale(d[i + 1] / this.maxValues[i]);
         const y = this.xScale(d[0]);
 
         this.crosshair.select(`#crosshair-circle-${i}`)
@@ -471,10 +480,6 @@ export default class MyChart extends Vue {
         mouse: [d3.event.clientX, d3.event.clientY - yOffset]
       });
     }
-
-    this.crosshair.select('#crosshair-line-y')
-      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY)
-      .attr('x2', this.yScale(this.maxMetricValue)).attr('y2', d3.event.layerY);
   }
 
   onMouseOver(): void {
@@ -488,8 +493,6 @@ export default class MyChart extends Vue {
   }
 
   renderChart(): void {
-    console.log('re-render');
-
     this.xScale = d3.scaleTime()
       .domain([
         this.zoomLowerValue,
