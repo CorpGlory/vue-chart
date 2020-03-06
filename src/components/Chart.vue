@@ -404,14 +404,16 @@ export default class MyChart extends Vue {
       .attr('stroke', 'red')
       .attr('stroke-width', '0.5px');
 
-    for(let i = 0; i < this.values[0].length - 1; i++) {
-      this.crosshair.append('circle')
-        .attr('class', 'crosshair-circle')
-        .attr('id', `crosshair-circle-${i}`)
-        .attr('r', 2)
-        .style('fill', 'white')
-        .style('stroke', 'red')
-        .style('stroke-width', '1px');
+    if(this.values !== undefined && this.values[0] !== undefined) {
+      for(let i = 0; i < this.values[0].length - 1; i++) {
+        this.crosshair.append('circle')
+          .attr('class', 'crosshair-circle')
+          .attr('id', `crosshair-circle-${i}`)
+          .attr('r', 2)
+          .style('fill', 'white')
+          .style('stroke', 'red')
+          .style('stroke-width', '1px');
+      }
     }
 
     const onMouseMove = this.onMouseMove.bind(this);
@@ -440,6 +442,15 @@ export default class MyChart extends Vue {
     const d1 = this.values[i];
 
     let yOffset = 0;
+
+    this.crosshair.select('#crosshair-line-y')
+      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY)
+      .attr('x2', this.yScale(1)).attr('y2', d3.event.layerY);
+
+    if(this.values === undefined || this.values[0] === undefined) {
+      return;
+    }
+
     if(this.values[0].length >= 4) {
       yOffset = (this.values[0].length - 4) * 30;
     }
@@ -469,10 +480,6 @@ export default class MyChart extends Vue {
         mouse: [d3.event.clientX, d3.event.clientY - yOffset]
       });
     }
-
-    this.crosshair.select('#crosshair-line-y')
-      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY)
-      .attr('x2', this.yScale(1)).attr('y2', d3.event.layerY);
   }
 
   onMouseOver(): void {
