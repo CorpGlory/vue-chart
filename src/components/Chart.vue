@@ -324,7 +324,8 @@ export default class MyChart extends Vue {
         .attr('x2', this.yScale(this.maxMetricValue))
         .attr('y1', (d: any) => this.xScale(d.date))
         .attr('y2', (d: any) => this.xScale(d.date))
-        .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:2,2;');
+        .attr('style', 'stroke:black;stroke-width:1;stroke-dasharray:2,2;')
+        .attr('stroke-opacity', this.strokeOpacity);
 
     if(this.annotationHelper !== AnnotationHelperPosition.NONE) {
       this._renderAnnotationsHelper();
