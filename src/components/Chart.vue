@@ -163,6 +163,9 @@ export default class MyChart extends Vue {
     if(this.zoom !== undefined && valuesLength > this.zoom) {
       lowerValue = this.values.length - this.zoom;
     }
+    if(this.values === undefined || this.values.length === 0) {
+      return;
+    }
     return new Date(this.values[lowerValue][0]);
   }
 
@@ -170,7 +173,9 @@ export default class MyChart extends Vue {
     if(this.zoom !== undefined && this.zoom.x !== undefined && this.zoom.x[1] !== undefined) {
       return this.zoom.x[1];
     }
-
+    if(this.values === undefined || this.values.length === 0) {
+      return;
+    }
     return new Date(this.values[this.values.length - 1][0]);
   }
 
@@ -296,7 +301,7 @@ export default class MyChart extends Vue {
         .attr('clip-path', `url(#axis-clip-${this.id})`)
       .append('g')
         .attr('class', `y0-axis`)
-        .call(d3.axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2));
+        .call(d3.axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2).tickPadding(15));
 
     this.svg.append('g')
       .attr('class', `y-axis`)
@@ -455,7 +460,7 @@ export default class MyChart extends Vue {
       yOffset = (this.values[0].length - 4) * 30;
     }
 
-    if(d1 !== undefined) {
+    if(d1 !== undefined && d0 !== undefined) {
       const d = mouseDate - d0[0] > d1[0] - mouseDate ? d1 : d0;
 
       let value = d[0].toLocaleString();
@@ -493,6 +498,8 @@ export default class MyChart extends Vue {
   }
 
   renderChart(): void {
+    console.log('re-render');
+
     this.xScale = d3.scaleTime()
       .domain([
         this.zoomLowerValue,
