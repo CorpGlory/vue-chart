@@ -85,7 +85,9 @@ export default class MyChart extends Vue {
 
   @Watch('zoom')
   onZoomChange(): void {
-    this.renderChart();
+    if(this.zoom !== undefined && this.zoom.renderChart !== undefined && this.zoom.renderChart ===  true) {
+      this.renderChart();
+    }
   }
 
   @Watch('yAxisTransform')
