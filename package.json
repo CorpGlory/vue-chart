@@ -20,7 +20,7 @@
     "@vue/cli-plugin-typescript": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
     "d3": "^5.15.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "svg": "^0.1.0",
     "typescript": "~3.5.3",
     "vue-template-compiler": "^2.6.10"
