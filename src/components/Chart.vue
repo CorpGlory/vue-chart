@@ -25,7 +25,7 @@ const ANNOTATION_HELPER_PARAMS = { lineX1: 0, lineX2: 3, circleX: 8, textX: 11 }
 const DEFAULT_ZOOM_LIMITS: ZoomLimits = { max: SECONDS_IN_DAY * 2, min: 5 * 60 };
 
 @Component
-export default class MyChart extends Vue {
+export default class VueChart extends Vue {
 
   d3Node: any;
   svg: any;
@@ -441,6 +441,11 @@ export default class MyChart extends Vue {
   }
 
   onMouseMove(coordinates: [number, number]): void {
+    if(this.values.length === 0) {
+      this.onMouseOut();
+      return;
+    }
+
     const bisectDate = d3.bisector((d: [number, number]) => d[0]).left;
     const mouseDate = this.xScale.invert(coordinates[1]);
     const i = bisectDate(this.values, mouseDate);
