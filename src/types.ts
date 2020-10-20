@@ -15,3 +15,8 @@ export type ZoomLimits = {
   max: Timestamp,
   min: Timestamp,
 };
+
+export enum AxisType {
+  NUMERIC = 'numeric',
+  TIME = 'time'
+};

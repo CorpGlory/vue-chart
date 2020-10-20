@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { findMaxMetricValue, formatTimeTicks } from '@/utils';
-import { Annotation, AnnotationHelperPosition, ZoomLimits } from '@/types';
+import { Annotation, AnnotationHelperPosition, ZoomLimits, AxisType } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
@@ -36,6 +36,9 @@ export default class VueChart extends Vue {
   @Prop({ required: true })
   id!: number;
 
+  @Prop({ required: false, default: AxisType.TIME })
+  xAxisType!: AxisType;
+
   @Prop({ required: true })
   columns!: string[];
 
@@ -48,7 +51,7 @@ export default class VueChart extends Vue {
   @Prop({ required: false })
   zoom!: any;
 
-  @Prop({ required: false, default: [] })
+  @Prop({ required: false, default: () => [] })
   annotations!: Annotation[];
 
   @Prop({ required: false, default: '' })
@@ -85,7 +88,7 @@ export default class VueChart extends Vue {
 
   @Watch('zoom')
   onZoomChange(): void {
-    if(this.zoom !== undefined && this.zoom.renderChart !== undefined && this.zoom.renderChart ===  true) {
+    if(this.zoom !== undefined && this.zoom.renderChart !== undefined && this.zoom.renderChart === true) {
       this.renderChart();
     }
   }
@@ -168,7 +171,15 @@ export default class VueChart extends Vue {
     if(this.values === undefined || this.values.length === 0) {
       return;
     }
-    return new Date(this.values[lowerValue][0]);
+    
+    switch(this.xAxisType) {
+      case AxisType.TIME:
+        return new Date(this.values[lowerValue][0]);
+      case AxisType.NUMERIC:
+        return this.values[lowerValue][0];
+      default:
+        throw new Error(`Unknown axis type: ${this.xAxisType}`);
+    }
   }
 
   get zoomUpperValue(): any {
@@ -178,7 +189,15 @@ export default class VueChart extends Vue {
     if(this.values === undefined || this.values.length === 0) {
       return;
     }
-    return new Date(this.values[this.values.length - 1][0]);
+    
+    switch(this.xAxisType) {
+      case AxisType.TIME:
+        return new Date(this.values[this.values.length - 1][0]);
+      case AxisType.NUMERIC:
+        return this.values[this.values.length - 1][0];
+      default:
+        throw new Error(`Unknown axis type: ${this.xAxisType}`);
+    }
   }
 
   @Watch('zoomLowerValue')
@@ -198,8 +217,15 @@ export default class VueChart extends Vue {
   }
 
   get labelX(): any {
-    if (this.renderLabelX === true ) {
-      return formatTimeTicks;
+    if(this.renderLabelX === true ) {
+      switch(this.xAxisType) {
+        case AxisType.TIME:
+          return formatTimeTicks;
+        case AxisType.NUMERIC:
+          return (label: string) => label;
+        default:
+          throw new Error(`Unknown axis type: ${this.xAxisType}`);
+      }
     } else {
       return () => {''};
     }
@@ -507,12 +533,26 @@ export default class VueChart extends Vue {
   renderChart(): void {
     console.log('re-render');
 
-    this.xScale = d3.scaleTime()
-      .domain([
-        this.zoomLowerValue,
-        this.zoomUpperValue
-      ])
-      .range([0, this.height]);
+    switch(this.xAxisType) {
+      case AxisType.TIME:
+        this.xScale = d3.scaleTime()
+          .domain([
+            this.zoomLowerValue,
+            this.zoomUpperValue
+          ])
+          .range([0, this.height]);
+        break;
+      case AxisType.NUMERIC:
+        this.xScale = d3.scaleLinear()
+          .domain([
+            this.zoomLowerValue,
+            this.zoomUpperValue
+          ])
+          .range([0, this.height]);
+        break;
+      default:
+        throw new Error(`Unknown axis type: ${this.xAxisType}`);
+    }
 
     this._createSvg();
     this._renderXAxis();
@@ -571,33 +611,64 @@ export default class VueChart extends Vue {
     }
     const startDate = this.xScale.invert(extent[0]);
     const endDate = this.xScale.invert(extent[1]);
-    const timestampRange = endDate.getTime() - startDate.getTime();;
-    if(timestampRange / 1000 < this.zoomLimits.min) {
-      this.svg
-        .call(this.brush.move, null);
-      return;
+
+    switch(this.xAxisType) {
+      case AxisType.TIME:
+        const timestampRange = endDate.getTime() - startDate.getTime();;
+        if(timestampRange / 1000 < this.zoomLimits.min) {
+          this.svg
+            .call(this.brush.move, null);
+          return;
+        }
+        this.$emit('change-zoom', {
+          start: startDate,
+          end: endDate
+        });
+        break;
+      case AxisType.NUMERIC:
+        console.log(startDate, endDate)
+        const range = endDate - startDate;
+        this.$emit('change-zoom', {
+          start: startDate,
+          end: endDate
+        });
+        break;
+      default:
+        throw new Error(`Unknown axis type: ${this.xAxisType}`);
     }
-    this.$emit('change-zoom', {
-      start: startDate,
-      end: endDate
-    });
   }
 
   zoomOut(): void {
     const startDate = this.xScale.invert(0);
     const endDate = this.xScale.invert(this.height);
-    const timestampRange = endDate.getTime() - startDate.getTime();
-    if(timestampRange / 1000 > this.zoomLimits.max) {
-      return;
+
+    switch(this.xAxisType) {
+      case AxisType.TIME:
+        const timestampRange = endDate.getTime() - startDate.getTime();
+        if(timestampRange / 1000 > this.zoomLimits.max) {
+          return;
+        }
+        const midDate = this.xScale.invert(this.height / 2);
+        const dayCount = this.zoomLimits.max / (2 * SECONDS_IN_DAY);
+        const dateAfter = this.addDays(midDate, dayCount);
+        const dateBefore = this.addDays(midDate, -1 * dayCount);
+        this.$emit('change-zoom', {
+          start: dateBefore,
+          end: dateAfter
+        });
+        break;
+      case AxisType.NUMERIC:
+        const midValue = this.xScale.invert(this.height / 2);
+        const valueAfter = midValue + 1000;
+        const valueBefore = midValue - 1000;
+        this.$emit('change-zoom', {
+          start: valueBefore,
+          end: valueAfter
+        });
+        break;
+      default:
+        throw new Error(`Unknown axis type: ${this.xAxisType}`);
     }
-    const midDate = this.xScale.invert(this.height / 2);
-    const dayCount = this.zoomLimits.max / (2 * SECONDS_IN_DAY);
-    const dateAfter = this.addDays(midDate, dayCount);
-    const dateBefore = this.addDays(midDate, -1 * dayCount);
-    this.$emit('change-zoom', {
-      start: dateBefore,
-      end: dateAfter
-    });
   }
 
   addDays(date: Date, days: number): Date {
