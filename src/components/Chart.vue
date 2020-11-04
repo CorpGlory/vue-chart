@@ -432,7 +432,7 @@ export default class VueChart extends Vue {
 
     this.crosshair.append('line')
       .attr('class', 'crosshair-line')
-      .attr('id', 'crosshair-line-y')
+      .attr('id', `crosshair-line-y-${this.id}`)
       .attr('fill', 'none')
       .attr('stroke', 'red')
       .attr('stroke-width', '0.5px');
@@ -441,7 +441,7 @@ export default class VueChart extends Vue {
       for(let i = 0; i < this.values[0].length - 1; i++) {
         this.crosshair.append('circle')
           .attr('class', 'crosshair-circle')
-          .attr('id', `crosshair-circle-${i}`)
+          .attr('id', `crosshair-circle-${i}-${this.id}`)
           .attr('r', 2)
           .style('fill', 'white')
           .style('stroke', 'red')
@@ -481,9 +481,9 @@ export default class VueChart extends Vue {
 
     let yOffset = 0;
 
-    this.crosshair.select('#crosshair-line-y')
-      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY)
-      .attr('x2', this.yScale(1)).attr('y2', d3.event.layerY);
+    this.crosshair.select(`#crosshair-line-y-${this.id}`)
+      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY - this.margin.top)
+      .attr('x2', this.yScale(1)).attr('y2', d3.event.layerY - this.margin.top);
 
     if(this.values === undefined || this.values[0] === undefined) {
       return;
@@ -498,13 +498,12 @@ export default class VueChart extends Vue {
 
       let value = d[0].toLocaleString();
       for(let i = 1; i < d.length; i++) {
-        value += `<br/>${this.metricNames[i - 1]}: ${d[i].toFixed(2)}`
+        value += `<br/>${this.metricNames[i - 1]}: ${d[i] !== undefined ? d[i].toFixed(2) : ''}`
       }
       for(let i = 0; i < this.values[0].length - 1; i++) {
         const x = this.yScale(d[i + 1] / this.maxValues[i]);
         const y = this.xScale(d[0]);
-
-        this.crosshair.select(`#crosshair-circle-${i}`)
+        this.crosshair.select(`#crosshair-circle-${i}-${this.id}`)
           .attr('cx', x)
           .attr('cy', y);
       }
