@@ -482,8 +482,8 @@ export default class VueChart extends Vue {
     let yOffset = 0;
 
     this.crosshair.select(`#crosshair-line-y-${this.id}`)
-      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY - this.margin.top)
-      .attr('x2', this.yScale(1)).attr('y2', d3.event.layerY - this.margin.top);
+      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY)
+      .attr('x2', this.yScale(1)).attr('y2', d3.event.layerY);
 
     if(this.values === undefined || this.values[0] === undefined) {
       return;
