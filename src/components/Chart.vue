@@ -81,6 +81,9 @@ export default class VueChart extends Vue {
   @Prop({ required: false, default: () => DEFAULT_ZOOM_LIMITS })
   zoomLimits!: ZoomLimits;
 
+  @Prop({ required: false, default: null })
+  sharedCrosshairPosition!: number | null;
+
   @Watch('values')
   onTimeSeriesChange(): void {
     this.renderChart();
@@ -96,6 +99,18 @@ export default class VueChart extends Vue {
   @Watch('yAxisTransform')
   onYAxisTransformChange(newValue: number): void {
     this.pathTransform(newValue);
+  }
+
+  @Watch('sharedCrosshairPosition')
+  onSharedCrosshairPositionChange(newValue: number | null): void {
+    // TODO: remove duplicates with mouse move
+    if(newValue === null) {
+      this.crosshair.style('display', 'none');
+      return;
+    }
+    this.displayCrosshair(newValue);
+    const value = this.getSeriesValuesFromYposition(newValue);
+    this.$emit('sharedCrosshairChange', value);
   }
 
   get metricNames(): string[] {
@@ -466,24 +481,22 @@ export default class VueChart extends Vue {
       });
   }
 
-  onMouseMove(coordinates: [number, number]): void {
-    if(this.values.length === 0) {
-      this.onMouseOut();
-      return;
-    }
+  displayCrosshair(layerY: number): void {
+    this.crosshair.style('display', null);
+    this.crosshair.select(`#crosshair-line-y-${this.id}`)
+      .attr('x1', this.yScale(0)).attr('y1', layerY)
+      .attr('x2', this.yScale(1)).attr('y2', layerY);
+  }
 
+  getSeriesValuesFromYposition(yCoordinate: number): string | undefined {
     const bisectDate = d3.bisector((d: [number, number]) => d[0]).left;
-    const mouseDate = this.xScale.invert(coordinates[1]);
+    const mouseDate = this.xScale.invert(yCoordinate);
     const i = bisectDate(this.values, mouseDate);
 
     const d0 = this.values[i - 1];
     const d1 = this.values[i];
 
     let yOffset = 0;
-
-    this.crosshair.select(`#crosshair-line-y-${this.id}`)
-      .attr('x1', this.yScale(0)).attr('y1', d3.event.layerY)
-      .attr('x2', this.yScale(1)).attr('y2', d3.event.layerY);
 
     if(this.values === undefined || this.values[0] === undefined) {
       return;
@@ -493,10 +506,11 @@ export default class VueChart extends Vue {
       yOffset = (this.values[0].length - 4) * 30;
     }
 
+    let value;
     if(d1 !== undefined && d0 !== undefined) {
       const d = mouseDate - d0[0] > d1[0] - mouseDate ? d1 : d0;
 
-      let value = d[0].toLocaleString();
+      value = d[0].toLocaleString();
       for(let i = 1; i < d.length; i++) {
         value += `<br/>${this.metricNames[i - 1]}: ${d[i] !== undefined ? d[i].toFixed(2) : ''}`
       }
@@ -507,16 +521,29 @@ export default class VueChart extends Vue {
           .attr('cx', x)
           .attr('cy', y);
       }
-
-      this.$emit('mouse-move', {
-        mouse: [d3.event.clientX, d3.event.clientY - yOffset],
-        value
-      });
-    } else {
-      this.$emit('mouse-move', {
-        mouse: [d3.event.clientX, d3.event.clientY - yOffset]
-      });
     }
+    return value;
+  }
+
+  onMouseMove(coordinates: [number, number]): void {
+    if(this.values.length === 0) {
+      this.onMouseOut();
+      return;
+    }
+
+    this.displayCrosshair(coordinates[1]);
+
+    let yOffset = 0;
+    if(this.values[0].length >= 4) {
+      yOffset = (this.values[0].length - 4) * 30;
+    }
+
+    const value = this.getSeriesValuesFromYposition(coordinates[1]);
+    this.$emit('mouse-move', {
+      mouse: [d3.event.clientX, d3.event.clientY - yOffset],
+      positionY: coordinates[1],
+      value
+    });
   }
 
   onMouseOver(): void {
