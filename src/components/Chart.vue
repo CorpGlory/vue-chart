@@ -512,7 +512,7 @@ export default class VueChart extends Vue {
 
       value = d[0].toLocaleString();
       for(let i = 1; i < d.length; i++) {
-        value += `<br/>${this.metricNames[i - 1]}: ${d[i] !== undefined ? d[i].toFixed(2) : ''}`
+        value += `<br/><span style="color: ${this.colors[i-1]}">${this.metricNames[i - 1]}</span>: ${d[i] !== undefined ? d[i].toFixed(2) : ''}`
       }
       for(let i = 0; i < this.values[0].length - 1; i++) {
         const x = this.yScale(d[i + 1] / this.maxValues[i]);
