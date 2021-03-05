@@ -17812,6 +17812,13 @@ module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
 
 /***/ }),
 
+/***/ "4b7f":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "4d64":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19893,17 +19900,6 @@ exports.f = wellKnownSymbol;
 
 /***/ }),
 
-/***/ "e840":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_4dd09751_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("f575");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_4dd09751_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_4dd09751_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_4dd09751_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
 /***/ "e893":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19939,10 +19935,14 @@ module.exports = Array.isArray || function isArray(arg) {
 
 /***/ }),
 
-/***/ "f575":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "eafe":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_928095b6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4b7f");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_928095b6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_928095b6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Chart_vue_vue_type_style_index_0_id_928095b6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -20060,12 +20060,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1487006b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=4dd09751&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1487006b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=928095b6&scoped=true&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"chart",attrs:{"id":_vm.id}},[(_vm.title !== undefined)?_c('h6',[_vm._v(_vm._s(_vm.title))]):_vm._e(),_c('div',{staticClass:"chart-container"},[_c('svg',{attrs:{"width":"100%","height":"100%"}})])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=4dd09751&scoped=true&
+// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=928095b6&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -26084,7 +26084,7 @@ function dsv_formatYear(year) {
     : pad(year, 4);
 }
 
-function formatDate(date) {
+function dsv_formatDate(date) {
   var hours = date.getUTCHours(),
       minutes = date.getUTCMinutes(),
       seconds = date.getUTCSeconds(),
@@ -26187,7 +26187,7 @@ function formatDate(date) {
 
   function formatValue(value) {
     return value == null ? ""
-        : value instanceof Date ? formatDate(value)
+        : value instanceof Date ? dsv_formatDate(value)
         : reFormat.test(value += "") ? "\"" + value.replace(/"/g, "\"\"") + "\""
         : value;
   }
@@ -32122,6 +32122,7 @@ var utils_formatDay = timeFormat('%d %b');
 var utils_formatWeek = timeFormat('%d %b');
 var utils_formatMonth = timeFormat('%d %B');
 var utils_formatYear = timeFormat('%Y');
+var everyTickCount = 5;
 
 function fromDateLikeToDate(d) {
   if (d instanceof Date) {
@@ -32138,6 +32139,31 @@ function fromDateLikeToDate(d) {
 function formatTimeTicks(d) {
   var date = fromDateLikeToDate(d);
   return (src_second(date) < date ? utils_formatMillisecond : src_minute(date) < date ? utils_formatSecond : src_hour(date) < date ? utils_formatMinute : src_day(date) < date ? utils_formatHour : src_month(date) < date ? sunday(date) < date ? utils_formatDay : utils_formatWeek : src_year(date) < date ? utils_formatMonth : utils_formatYear)(date);
+}
+function formatDepthTicks(d, i) {
+  // @ts-ignore
+  if (this.doubleAxisX === false || i % everyTickCount !== 0) {
+    return '';
+  } // @ts-ignore
+
+
+  return this.getSupXValuesByDate(d) + ' ft';
+}
+function formatColorTicks(d, i) {
+  // @ts-ignore
+  var lastRowValue = this.getLastDataValueByDate(d); // @ts-ignore
+
+  if (this.doubleAxisX === true && i % everyTickCount === 0) {
+    return '';
+  }
+
+  if (lastRowValue === 1 || lastRowValue === 2) {
+    return '';
+  }
+
+  var date = fromDateLikeToDate(d);
+  var formatDate = (src_second(date) < date ? utils_formatMillisecond : src_minute(date) < date ? utils_formatSecond : src_hour(date) < date ? utils_formatMinute : src_day(date) < date ? utils_formatHour : src_month(date) < date ? sunday(date) < date ? utils_formatDay : utils_formatWeek : src_year(date) < date ? utils_formatMonth : utils_formatYear)(date);
+  return formatDate;
 }
 function findMaxMetricValue(values, columnIndex) {
   var maxRow = lodash_default.a.maxBy(values, function (x) {
@@ -32874,8 +32900,8 @@ function (_Vue) {
         lowerValue -= transform;
         upperValue -= transform;
         this.xScale.domain([this.xScale.invert(lowerValue), this.xScale.invert(upperValue)]);
-        this.svg.select('g.y-axis').remove();
-        this.svg.select('g.y0-axis').remove();
+        this.svg.selectAll('g.y-axis').remove();
+        this.svg.selectAll('g.y0-axis').remove();
 
         this._renderYAxis();
       }
@@ -32890,6 +32916,14 @@ function (_Vue) {
     key: "_renderYAxis",
     value: function _renderYAxis() {
       this.svg.append('g').attr('clip-path', "url(#axis-clip-".concat(this.id, ")")).append('g').attr('class', "y0-axis").call(axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2).tickPadding(15));
+
+      if (this.doubleAxisX === true) {
+        this.svg.append('g').attr('clip-path', "url(#axis-clip-".concat(this.id, ")")).append('g').attr('class', "y0-axis sup-y-ticks") // @ts-ignore
+        .call(axisLeft(this.xScale).tickFormat(formatDepthTicks.bind(this)).tickSize(2).tickPadding(15));
+      }
+
+      this.svg.append('g').attr('clip-path', "url(#axis-clip-".concat(this.id, ")")).append('g').attr('class', "y0-axis custom-ticks") // @ts-ignore
+      .call(axisLeft(this.xScale).tickFormat(formatColorTicks.bind(this)).tickSize(2).tickPadding(15));
       this.svg.append('g').attr('class', "y-axis").call(axisLeft(this.xScale).tickFormat(function () {
         '';
       }).tickSize(0));
@@ -32973,6 +33007,34 @@ function (_Vue) {
     value: function displayCrosshair(layerY) {
       this.crosshair.style('display', null);
       this.crosshair.select("#crosshair-line-y-".concat(this.id)).attr('x1', this.yScale(0)).attr('y1', layerY).attr('x2', this.yScale(1)).attr('y2', layerY);
+    }
+  }, {
+    key: "getSupXValuesByDate",
+    value: function getSupXValuesByDate(date) {
+      // @ts-ignore
+      var row = lodash["find"](this.values, function (row) {
+        return row[0].getTime() === date.getTime();
+      });
+
+      if (row === undefined || row[1] === undefined) {
+        return 'not defined';
+      }
+
+      return row[1];
+    }
+  }, {
+    key: "getLastDataValueByDate",
+    value: function getLastDataValueByDate(date) {
+      // @ts-ignore
+      var row = lodash["find"](this.values, function (row) {
+        return row[0].getTime() === date.getTime();
+      });
+
+      if (row === undefined || lodash["last"](row) === undefined) {
+        return undefined;
+      }
+
+      return lodash["last"](row);
     }
   }, {
     key: "getSeriesValuesFromYposition",
@@ -33372,7 +33434,7 @@ function (_Vue) {
       if (this.renderLabelX === true) {
         switch (this.xAxisType) {
           case AxisType.TIME:
-            return formatTimeTicks;
+            return formatTimeTicks.bind(this);
 
           case AxisType.NUMERIC:
             return function (label) {
@@ -33492,6 +33554,11 @@ __decorate([Prop({
   default: null
 })], Chartvue_type_script_lang_ts_VueChart.prototype, "sharedCrosshairPosition", void 0);
 
+__decorate([Prop({
+  required: false,
+  default: false
+})], Chartvue_type_script_lang_ts_VueChart.prototype, "doubleAxisX", void 0);
+
 __decorate([Watch('values')], Chartvue_type_script_lang_ts_VueChart.prototype, "onTimeSeriesChange", null);
 
 __decorate([Watch('zoom')], Chartvue_type_script_lang_ts_VueChart.prototype, "onZoomChange", null);
@@ -33506,8 +33573,8 @@ Chartvue_type_script_lang_ts_VueChart = __decorate([vue_class_component_esm], Ch
 /* harmony default export */ var Chartvue_type_script_lang_ts_ = (Chartvue_type_script_lang_ts_VueChart);
 // CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=script&lang=ts&
  /* harmony default export */ var components_Chartvue_type_script_lang_ts_ = (Chartvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/Chart.vue?vue&type=style&index=0&id=4dd09751&scoped=true&lang=css&
-var Chartvue_type_style_index_0_id_4dd09751_scoped_true_lang_css_ = __webpack_require__("e840");
+// EXTERNAL MODULE: ./src/components/Chart.vue?vue&type=style&index=0&id=928095b6&scoped=true&lang=css&
+var Chartvue_type_style_index_0_id_928095b6_scoped_true_lang_css_ = __webpack_require__("eafe");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -33619,7 +33686,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "4dd09751",
+  "928095b6",
   null
   
 )

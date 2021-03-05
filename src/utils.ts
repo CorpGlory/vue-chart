@@ -12,6 +12,7 @@ const formatDay = d3.timeFormat('%d %b');
 const formatWeek = d3.timeFormat('%d %b');
 const formatMonth = d3.timeFormat('%d %B');
 const formatYear = d3.timeFormat('%Y');
+const everyTickCount = 5;
 
 function fromDateLikeToDate(d: DateLike): Date {
   if(d instanceof Date) {
@@ -34,6 +35,36 @@ export function formatTimeTicks(d: DateLike): string {
     : d3.timeYear(date) < date ? formatMonth
     : formatYear
   )(date);
+}
+export function formatDepthTicks(d: DateLike, i: number): string {
+  // @ts-ignore
+  if(this.doubleAxisX === false || i % everyTickCount !== 0) {
+    return '';
+  }
+  // @ts-ignore
+  return this.getSupXValuesByDate(d) + ' ft';
+}
+
+export function formatColorTicks(d: DateLike, i: number): string {
+  // @ts-ignore
+  const lastRowValue = this.getLastDataValueByDate(d);
+  // @ts-ignore
+  if(this.doubleAxisX === true && i % everyTickCount === 0) {
+    return '';
+  }
+  if(lastRowValue === 1 || lastRowValue === 2) {
+    return '';
+  }
+  let date: Date = fromDateLikeToDate(d);
+  const formatDate = (d3.timeSecond(date) < date ? formatMillisecond
+    : d3.timeMinute(date) < date ? formatSecond
+    : d3.timeHour(date) < date ? formatMinute
+    : d3.timeDay(date) < date ? formatHour
+    : d3.timeMonth(date) < date ? (d3.timeWeek(date) < date ? formatDay : formatWeek)
+    : d3.timeYear(date) < date ? formatMonth
+    : formatYear
+  )(date)
+  return formatDate;
 }
 
 export function findMaxMetricValue(values: number[][], columnIndex: number): number {
