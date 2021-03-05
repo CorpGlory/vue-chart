@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import * as d3 from 'd3';
 import _ from 'lodash';
 
@@ -39,14 +37,18 @@ export function formatTimeTicks(d: DateLike): string {
   )(date);
 }
 export function formatDepthTicks(d: DateLike, i: number): string {
+  // @ts-ignore
   if(this.doubleAxisX === false || i % everyTickCount !== 0) {
     return '';
   }
+  // @ts-ignore
   return this.getSupXValuesByDate(d) + ' ft';
 }
 
 export function formatColorTicks(d: DateLike, i: number): string {
+  // @ts-ignore
   const lastRowValue = this.getLastDataValueByDate(d);
+  // @ts-ignore
   if(this.doubleAxisX === true && i % everyTickCount === 0) {
     return '';
   }
