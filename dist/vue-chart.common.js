@@ -32127,7 +32127,7 @@ function fromDateLikeToDate(d) {
   return new Date(d.valueOf());
 }
 
-function formatTimeTicks(d) {
+function formatTimeTicks(d, i) {
   // @ts-ignore
   if (this.doubleAxisX === true && i % everyTickCount === 0) {
     return '';
