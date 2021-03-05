@@ -47,7 +47,11 @@ export function formatDepthTicks(d: DateLike, i: number): string {
     return '';
   }
   // @ts-ignore
-  return this.getSupXValuesByDate(d) + ' ft';
+  const value = this.getSupXValuesByDate(d);
+  if(value === undefined) {
+    return '';
+  }
+  return value.toFixed(0) + ' ft';
 }
 
 export function formatColorTicks(d: DateLike, i: number): string {
@@ -57,6 +61,7 @@ export function formatColorTicks(d: DateLike, i: number): string {
   if(this.doubleAxisX === true && i % everyTickCount === 0) {
     return '';
   }
+
   if(lastRowValue === 1 || lastRowValue === 2) {
     return '';
   }
@@ -94,6 +99,10 @@ export function findClosest(arr: Date[], date: Date): number {
 
   let lowIdx = 0;
   let highIdx = arr.length - 1;
+
+  if(date.getTime() > arr[highIdx].getTime()) {
+    return -1;
+  }
 
   while(highIdx - lowIdx > 1) {
     const midIdx = Math.floor((lowIdx + highIdx) / 2);

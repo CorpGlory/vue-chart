@@ -508,13 +508,13 @@ export default class VueChart extends Vue {
       .attr('x2', this.yScale(1)).attr('y2', layerY);
   }
 
-  getSupXValuesByDate(date: Date): string | number {
+  getSupXValuesByDate(date: Date): string | number | undefined {
     // @ts-ignore
     const idx = findClosest(this.values.map(val => val[0]), date);
 
     const row = this.values[idx];
     if(row === undefined || row[1] === undefined) {
-      return 'not defined';
+      return undefined;
     }
     return row[1];
   }
