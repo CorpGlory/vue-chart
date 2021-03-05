@@ -643,7 +643,7 @@ export default class VueChart extends Vue {
       .call(this.brush)
       .call(
         d3.zoom()
-          .filter(() => d3.event.shiftKey)
+          .filter(() => d3.event.shiftKey || d3.event.type === 'wheel')
           .on('zoom', () => {
             this._onPanningZoom();
           })
