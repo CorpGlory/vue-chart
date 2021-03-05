@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { findMaxMetricValue, formatTimeTicks } from '@/utils';
+import { findMaxMetricValue, formatTimeTicks, formatDepthTicks, formatColorTicks } from '@/utils';
 import { Annotation, AnnotationHelperPosition, ZoomLimits, AxisType } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
@@ -83,6 +83,9 @@ export default class VueChart extends Vue {
 
   @Prop({ required: false, default: null })
   sharedCrosshairPosition!: number | null;
+
+  @Prop({ required: false, default: false })
+  doubleAxisX!: boolean;
 
   @Watch('values')
   onTimeSeriesChange(): void {
@@ -235,7 +238,7 @@ export default class VueChart extends Vue {
     if(this.renderLabelX === true ) {
       switch(this.xAxisType) {
         case AxisType.TIME:
-          return formatTimeTicks;
+          return formatTimeTicks.bind(this);
         case AxisType.NUMERIC:
           return (label: string) => label;
         default:
@@ -324,8 +327,8 @@ export default class VueChart extends Vue {
 
       this.xScale.domain([this.xScale.invert(lowerValue), this.xScale.invert(upperValue)]);
 
-      this.svg.select('g.y-axis').remove();
-      this.svg.select('g.y0-axis').remove();
+      this.svg.selectAll('g.y-axis').remove();
+      this.svg.selectAll('g.y0-axis').remove();
       this._renderYAxis();
     }
   }
@@ -345,6 +348,22 @@ export default class VueChart extends Vue {
       .append('g')
         .attr('class', `y0-axis`)
         .call(d3.axisLeft(this.xScale).tickFormat(this.labelX).tickSize(2).tickPadding(15));
+    if(this.doubleAxisX === true) {
+      this.svg
+      .append('g')
+        .attr('clip-path', `url(#axis-clip-${this.id})`)
+      .append('g')
+        .attr('class', `y0-axis sup-y-ticks`)
+        // @ts-ignore
+        .call(d3.axisLeft(this.xScale).tickFormat(formatDepthTicks.bind(this)).tickSize(2).tickPadding(15));
+    }
+    this.svg
+    .append('g')
+      .attr('clip-path', `url(#axis-clip-${this.id})`)
+    .append('g')
+      .attr('class', `y0-axis custom-ticks`)
+      // @ts-ignore
+      .call(d3.axisLeft(this.xScale).tickFormat(formatColorTicks.bind(this)).tickSize(2).tickPadding(15));
 
     this.svg.append('g')
       .attr('class', `y-axis`)
@@ -486,6 +505,24 @@ export default class VueChart extends Vue {
     this.crosshair.select(`#crosshair-line-y-${this.id}`)
       .attr('x1', this.yScale(0)).attr('y1', layerY)
       .attr('x2', this.yScale(1)).attr('y2', layerY);
+  }
+
+  getSupXValuesByDate(date: Date): string | number {
+    // @ts-ignore
+    const row = _.find(this.values, row => row[0].getTime() === date.getTime());
+    if(row === undefined || row[1] === undefined) {
+      return 'not defined';
+    }
+    return row[1];
+  }
+
+  getLastDataValueByDate(date: Date): number | undefined {
+    // @ts-ignore
+    const row = _.find(this.values, row => row[0].getTime() === date.getTime());
+    if(row === undefined || _.last(row) === undefined) {
+      return undefined;
+    }
+    return _.last(row);
   }
 
   getSeriesValuesFromYposition(yCoordinate: number): string | undefined {
