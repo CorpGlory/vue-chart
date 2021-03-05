@@ -47,7 +47,11 @@ export function formatDepthTicks(d: DateLike, i: number): string {
     return '';
   }
   // @ts-ignore
-  return this.getSupXValuesByDate(d) + ' ft';
+  const value = this.getSupXValuesByDate(d);
+  if(value === undefined) {
+    return '';
+  }
+  return value.toFixed(0) + ' ft';
 }
 
 export function formatColorTicks(d: DateLike, i: number): string {
@@ -57,6 +61,7 @@ export function formatColorTicks(d: DateLike, i: number): string {
   if(this.doubleAxisX === true && i % everyTickCount === 0) {
     return '';
   }
+
   if(lastRowValue === 1 || lastRowValue === 2) {
     return '';
   }
@@ -78,4 +83,38 @@ export function findMaxMetricValue(values: number[][], columnIndex: number): num
     return 0;
   }
   return maxRow[columnIndex];
+}
+
+/**
+ * Finds the closest item to a given Date in an array using binary search
+ * @argument arr: ascending sorted array
+ * @argument date: Date to find
+ * @returns index of the closest item to `date`
+ * @returns -1 if given array is empty
+ */
+export function findClosest(arr: Date[], date: Date): number {
+  if(arr.length === 0) {
+    return -1;
+  }
+
+  let lowIdx = 0;
+  let highIdx = arr.length - 1;
+
+  if(date.getTime() > arr[highIdx].getTime()) {
+    return -1;
+  }
+
+  while(highIdx - lowIdx > 1) {
+    const midIdx = Math.floor((lowIdx + highIdx) / 2);
+    if(arr[midIdx].getTime() < date.getTime()) {
+      lowIdx = midIdx;
+    } else {
+      highIdx = midIdx;
+    }
+  }
+
+  if(date.getTime() - arr[lowIdx].getTime() <= arr[highIdx].getTime() - date.getTime()) {
+    return lowIdx;
+  }
+  return highIdx;
 }
