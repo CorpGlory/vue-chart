@@ -510,6 +510,7 @@ export default class VueChart extends Vue {
   getSupXValuesByDate(date: Date): string | number {
     // @ts-ignore
     const idx = findClosest(this.values.map(val => val[0]), date);
+    console.log(_.first(this.values), date)
     const row = this.values[idx];
     if(row === undefined || row[1] === undefined) {
       return 'not defined';
@@ -520,6 +521,7 @@ export default class VueChart extends Vue {
   getLastDataValueByDate(date: Date): number | undefined {
     // @ts-ignore
     const idx = findClosest(this.values.map(val => val[0]), date);
+    console.log(_.first(this.values), date)
     const row = this.values[idx];
     if(row === undefined || _.last(row) === undefined) {
       return undefined;
