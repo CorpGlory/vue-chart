@@ -25,6 +25,11 @@ function fromDateLikeToDate(d: DateLike): Date {
 }
 
 export function formatTimeTicks(d: DateLike): string {
+  // @ts-ignore
+  if(this.doubleAxisX === true && i % everyTickCount === 0) {
+    return '';
+  }
+
   let date: Date = fromDateLikeToDate(d);
 
   return (d3.timeSecond(date) < date ? formatMillisecond
