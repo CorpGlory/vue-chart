@@ -356,14 +356,15 @@ export default class VueChart extends Vue {
         .attr('class', `y0-axis sup-y-ticks`)
         // @ts-ignore
         .call(d3.axisLeft(this.xScale).tickFormat(formatDepthTicks.bind(this)).tickSize(2).tickPadding(15));
+
+      this.svg
+      .append('g')
+        .attr('clip-path', `url(#axis-clip-${this.id})`)
+      .append('g')
+        .attr('class', `y0-axis custom-ticks`)
+        // @ts-ignore
+        .call(d3.axisLeft(this.xScale).tickFormat(formatColorTicks.bind(this)).tickSize(2).tickPadding(15));
     }
-    this.svg
-    .append('g')
-      .attr('clip-path', `url(#axis-clip-${this.id})`)
-    .append('g')
-      .attr('class', `y0-axis custom-ticks`)
-      // @ts-ignore
-      .call(d3.axisLeft(this.xScale).tickFormat(formatColorTicks.bind(this)).tickSize(2).tickPadding(15));
 
     this.svg.append('g')
       .attr('class', `y-axis`)
@@ -510,7 +511,7 @@ export default class VueChart extends Vue {
   getSupXValuesByDate(date: Date): string | number {
     // @ts-ignore
     const idx = findClosest(this.values.map(val => val[0]), date);
-    console.log(_.first(this.values), date)
+
     const row = this.values[idx];
     if(row === undefined || row[1] === undefined) {
       return 'not defined';
@@ -521,7 +522,7 @@ export default class VueChart extends Vue {
   getLastDataValueByDate(date: Date): number | undefined {
     // @ts-ignore
     const idx = findClosest(this.values.map(val => val[0]), date);
-    console.log(_.first(this.values), date)
+
     const row = this.values[idx];
     if(row === undefined || _.last(row) === undefined) {
       return undefined;
