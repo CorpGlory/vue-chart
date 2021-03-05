@@ -32136,7 +32136,12 @@ function fromDateLikeToDate(d) {
   return new Date(d.valueOf());
 }
 
-function formatTimeTicks(d) {
+function formatTimeTicks(d, i) {
+  // @ts-ignore
+  if (this.doubleAxisX === true && i % everyTickCount === 0) {
+    return '';
+  }
+
   var date = fromDateLikeToDate(d);
   return (src_second(date) < date ? utils_formatMillisecond : src_minute(date) < date ? utils_formatSecond : src_hour(date) < date ? utils_formatMinute : src_day(date) < date ? utils_formatHour : src_month(date) < date ? sunday(date) < date ? utils_formatDay : utils_formatWeek : src_year(date) < date ? utils_formatMonth : utils_formatYear)(date);
 }
