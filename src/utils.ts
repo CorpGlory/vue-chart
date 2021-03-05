@@ -79,3 +79,33 @@ export function findMaxMetricValue(values: number[][], columnIndex: number): num
   }
   return maxRow[columnIndex];
 }
+
+/**
+ * Finds the closest item to a given Date in an array using binary search
+ * @argument arr: ascending sorted array
+ * @argument date: Date to find
+ * @returns index of the closest item to `date`
+ * @returns -1 if given array is empty
+ */
+export function findClosest(arr: Date[], date: Date): number {
+  if(arr.length === 0) {
+    return -1;
+  }
+
+  let lowIdx = 0;
+  let highIdx = arr.length - 1;
+
+  while(highIdx - lowIdx > 1) {
+    const midIdx = Math.floor((lowIdx + highIdx) / 2);
+    if(arr[midIdx].getTime() < date.getTime()) {
+      lowIdx = midIdx;
+    } else {
+      highIdx = midIdx;
+    }
+  }
+
+  if(date.getTime() - arr[lowIdx].getTime() <= arr[highIdx].getTime() - date.getTime()) {
+    return lowIdx;
+  }
+  return highIdx;
+}

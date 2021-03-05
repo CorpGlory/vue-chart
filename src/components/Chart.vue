@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { findMaxMetricValue, formatTimeTicks, formatDepthTicks, formatColorTicks } from '@/utils';
+import { findMaxMetricValue, formatTimeTicks, formatDepthTicks, formatColorTicks, findClosest } from '@/utils';
 import { Annotation, AnnotationHelperPosition, ZoomLimits, AxisType } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
@@ -189,7 +189,7 @@ export default class VueChart extends Vue {
     if(this.values === undefined || this.values.length === 0) {
       return;
     }
-    
+
     switch(this.xAxisType) {
       case AxisType.TIME:
         return new Date(this.values[lowerValue][0]);
@@ -207,7 +207,7 @@ export default class VueChart extends Vue {
     if(this.values === undefined || this.values.length === 0) {
       return;
     }
-    
+
     switch(this.xAxisType) {
       case AxisType.TIME:
         return new Date(this.values[this.values.length - 1][0]);
@@ -509,7 +509,8 @@ export default class VueChart extends Vue {
 
   getSupXValuesByDate(date: Date): string | number {
     // @ts-ignore
-    const row = _.find(this.values, row => row[0].getTime() === date.getTime());
+    const idx = findClosest(this.values.map(val => val[0]), date);
+    const row = this.values[idx];
     if(row === undefined || row[1] === undefined) {
       return 'not defined';
     }
@@ -518,7 +519,8 @@ export default class VueChart extends Vue {
 
   getLastDataValueByDate(date: Date): number | undefined {
     // @ts-ignore
-    const row = _.find(this.values, row => row[0].getTime() === date.getTime());
+    const idx = findClosest(this.values.map(val => val[0]), date);
+    const row = this.values[idx];
     if(row === undefined || _.last(row) === undefined) {
       return undefined;
     }
