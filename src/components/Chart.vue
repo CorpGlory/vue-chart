@@ -33,6 +33,8 @@ export default class VueChart extends Vue {
   brush: any;
   xScale: any;
 
+  _wheelFactor = 1;
+
   @Prop({ required: true })
   id!: number;
 
@@ -291,14 +293,15 @@ export default class VueChart extends Vue {
 
   _onPanningEnd(): void {
     this.$emit('pan', [
-      this.xScale.invert(this.xScale(this.zoomLowerValue) - d3.event.transform.y),
-      this.xScale.invert(this.xScale(this.zoomUpperValue) - d3.event.transform.y)
+      this.xScale.invert(this.xScale(this.zoomLowerValue) - this._wheelFactor * d3.event.transform.y),
+      this.xScale.invert(this.xScale(this.zoomUpperValue) - this._wheelFactor * d3.event.transform.y)
     ]);
   }
 
   _onPanningZoom(): void {
+    this._wheelFactor = d3.event.sourceEvent.type === 'wheel' ? -1 : 1;
     this.$emit('tooltip', { displayed: false });
-    this.$emit('shiftPan', d3.event.transform.y);
+    this.$emit('shiftPan', this._wheelFactor * d3.event.transform.y);
   }
 
   pathTransform(transform: number): void {
