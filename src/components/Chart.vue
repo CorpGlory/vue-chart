@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { findMaxMetricValue, formatTimeTicks, formatDepthTicks, formatColorTicks, findClosest } from '@/utils';
-import { Annotation, AnnotationHelperPosition, ZoomLimits, AxisType } from '@/types';
+import { Annotation, AnnotationHelperPosition, ZoomLimits, AxisType, RenderType } from '@/types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
@@ -23,6 +23,7 @@ const DEFAULT_MARGIN = { top: 20, right: 40, bottom: 20, left: 70 };
 const ANNOTATION_HELPER_PARAMS = { lineX1: 0, lineX2: 3, circleX: 8, textX: 11 };
 
 const DEFAULT_ZOOM_LIMITS: ZoomLimits = { max: SECONDS_IN_DAY * 2, min: 5 * 60 };
+const METRIC_POINT_SIZE = 1;
 
 @Component
 export default class VueChart extends Vue {
@@ -49,6 +50,9 @@ export default class VueChart extends Vue {
 
   @Prop({ required: true })
   colors!: string[];
+
+  @Prop({ required: true })
+  renderTypes!: RenderType[];
 
   @Prop({ required: false })
   zoom!: any;
@@ -264,6 +268,13 @@ export default class VueChart extends Vue {
     );
   }
 
+  getRenderType(idx: number): RenderType {
+    if(this.renderTypes === undefined || this.renderTypes[idx] === undefined) {
+      return RenderType.LINE;
+    }
+    return this.renderTypes[idx];
+  }
+
   _createSvg(): void {
     this.d3Node.selectAll('svg *').remove();
 
@@ -375,22 +386,44 @@ export default class VueChart extends Vue {
   }
 
   _renderMetric(name: string, idx: number): void {
-    const lineGenerator = d3.line()
-      .x((d: any) => this.yScale(d[idx + 1] / this.maxValues[idx]))
-      .y((d: any) => this.xScale(d[0]));
+    const data = _.slice(this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1);
+    const metricContainer = this.svg
+        .append('g')
+          .attr('clip-path', `url(#clip-${this.id})`)
+          .style('pointer-events', 'none');
 
-    this.svg
-      .append('g')
-        .attr('clip-path', `url(#clip-${this.id})`)
-        .style('pointer-events', 'none')
-      .append('path')
-        .datum(_.slice(this.values, this.zoomLowerIndex, this.zoomUpperIndex + 1))
-        .attr('class', 'metric-path')
-        .attr('fill', 'none')
-        .attr('stroke', this.colors[idx])
-        .attr('stroke-width', 1)
-        .attr('stroke-opacity', this.strokeOpacity)
-        .attr('d', lineGenerator);
+    const renderType = this.getRenderType(idx);
+    switch(renderType) {
+      case RenderType.LINE:
+        const lineGenerator = d3.line()
+          .x((d: any) => this.yScale(d[idx + 1] / this.maxValues[idx]))
+          .y((d: any) => this.xScale(d[0]));
+
+        metricContainer
+          .append('path')
+            .datum(data)
+            .attr('class', 'metric-path')
+            .attr('fill', 'none')
+            .attr('stroke', this.colors[idx])
+            .attr('stroke-width', 1)
+            .attr('stroke-opacity', this.strokeOpacity)
+            .attr('d', lineGenerator);
+        return;
+      case RenderType.POINT:
+        metricContainer
+          .selectAll(null)
+          .data(data)
+          .enter()
+          .append('circle')
+          .attr('class', `metric-path metric-circle`)
+          .attr('r', METRIC_POINT_SIZE)
+          .style('fill', this.colors[idx])
+          .attr('cx', (d: any) => this.yScale(d[idx + 1] / this.maxValues[idx]))
+          .attr('cy', (d: any) => this.xScale(d[0]));
+        return;
+      default:
+        throw new Error(`Unknown render type: ${renderType}`);        
+    }
   }
 
   _renderAnnotations(): void {
