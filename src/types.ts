@@ -20,3 +20,8 @@ export enum AxisType {
   NUMERIC = 'numeric',
   TIME = 'time'
 };
+
+export enum RenderType {
+  LINE = 'line',
+  POINT = 'point'
+}
