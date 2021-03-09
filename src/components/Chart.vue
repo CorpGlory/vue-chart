@@ -748,19 +748,17 @@ export default class VueChart extends Vue {
 
     switch(this.xAxisType) {
       case AxisType.TIME:
-        const dateAfter = this.addDays(endDate, 1);
-        const dateBefore = this.addDays(startDate, -1);
+        const dateBefore = this.addDays(startDate, -2);
         this.$emit('change-zoom', {
           start: dateBefore,
-          end: dateAfter
+          end: endDate
         });
         break;
       case AxisType.NUMERIC:
-        const valueAfter = endDate + 1000;
-        const valueBefore = startDate - 1000;
+        const valueBefore = startDate - 2000;
         this.$emit('change-zoom', {
           start: valueBefore,
-          end: valueAfter
+          end: endDate
         });
         break;
       default:
