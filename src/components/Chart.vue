@@ -405,7 +405,7 @@ export default class VueChart extends Vue {
             .attr('class', 'metric-path')
             .attr('fill', 'none')
             .attr('stroke', this.colors[idx])
-            .attr('stroke-width', 1)
+            .attr('stroke-width', 2)
             .attr('stroke-opacity', this.strokeOpacity)
             .attr('d', lineGenerator);
         return;
@@ -620,7 +620,8 @@ export default class VueChart extends Vue {
     this.$emit('mouse-move', {
       mouse: [d3.event.clientX, d3.event.clientY - yOffset],
       positionY: coordinates[1],
-      value
+      value,
+      shiftKey: d3.event.shiftKey
     });
   }
 
